@@ -9,6 +9,7 @@ Notable project changes are recorded here. The project is pre-release and may ch
 - Added a project-specific draft privacy disclosure for local and optional Groq data flows.
 - Clarified that scanning works offline and renamed the explanation action to “Get WCAG guidance”.
 - Simplified the README roadmap, license, and project-maintenance notes.
+- Added safe links from finding cards to axe rule guidance.
 - Omitted page HTML and axe failure summaries from exported reports; stripped URL credentials, query parameters, and fragments.
 - Added a maintained roadmap, project log, contribution guide, and GitHub issue templates.
 - Expanded the W3C WCAG 2.2 A/AA guidance corpus and added optional semantic retrieval with a TF-IDF fallback.

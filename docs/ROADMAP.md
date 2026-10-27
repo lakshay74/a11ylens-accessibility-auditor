@@ -32,6 +32,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 ## Week 5 — Evaluation and interface polish: in progress
 
 - [x] Add a local JSON export for scan summaries. The schema excludes page HTML and removes URL credentials, query parameters, and fragments.
+- [x] Link findings to the related axe rule guidance when the source is a trusted Deque University HTTPS page.
 - [x] Add GitHub maintenance docs, a changelog, and issue templates.
 - [ ] Create a small, clearly labeled set of accessible and intentionally flawed demo pages for repeatable manual evaluation.
 - [ ] Record scan coverage and repair outcomes without claiming automated conformance.

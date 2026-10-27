@@ -1,4 +1,5 @@
 const API_URL = "http://127.0.0.1:8000";
+const AXE_HELP_HOSTS = new Set(["dequeuniversity.com", "www.dequeuniversity.com"]);
 
 const scanButton = document.getElementById("scan-button");
 const scanStatus = document.getElementById("scan-status");
@@ -200,6 +201,22 @@ function appendExplanation(container, data) {
   container.append(section);
 }
 
+function makeAxeHelpLink(finding) {
+  try {
+    const url = new URL(finding.helpUrl);
+    if (url.protocol !== "https:" || !AXE_HELP_HOSTS.has(url.hostname.toLowerCase())) return null;
+
+    const link = createElement("a", "", "Axe rule help");
+    link.href = url.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.setAttribute("aria-label", `Read axe rule help for ${finding.id}`);
+    return link;
+  } catch {
+    return null;
+  }
+}
+
 function createFindingCard(finding, category, tabId, index) {
   const card = createElement("article", "finding-card");
   const titleRow = createElement("div", "finding-title-row");
@@ -208,7 +225,10 @@ function createFindingCard(finding, category, tabId, index) {
   card.append(titleRow);
 
   const noun = category === "manual-review" ? "Needs manual review" : "Rule";
-  card.append(createElement("p", "rule-meta", `${noun}: ${finding.id} · ${finding.totalNodes} affected element${finding.totalNodes === 1 ? "" : "s"}`));
+  const meta = createElement("p", "rule-meta", `${noun}: ${finding.id} · ${finding.totalNodes} affected element${finding.totalNodes === 1 ? "" : "s"}`);
+  const helpLink = makeAxeHelpLink(finding);
+  if (helpLink) meta.append(document.createTextNode(" · "), helpLink);
+  card.append(meta);
 
   const elementActions = createElement("div", "element-actions");
   const sampleNodes = finding.nodes.slice(0, 3);

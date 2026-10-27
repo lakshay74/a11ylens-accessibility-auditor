@@ -131,6 +131,7 @@ button:focus-visible {
 .impact-moderate { background: #fff6d9; color: #674900; }
 .impact-minor, .impact-unknown { background: #e8eff4; color: #405667; }
 .rule-meta { margin: 5px 0 9px; color: #586979; font-size: 10px; }
+.rule-meta a { color: #11556e; }
 .action-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .element-action { padding: 4px 0; border: 0; background: transparent; color: #16475b; font-size: 10px; text-decoration: underline; cursor: pointer; }
 .element-actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 5px 0 8px; }

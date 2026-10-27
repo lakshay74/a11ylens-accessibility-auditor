@@ -114,7 +114,7 @@ The API is local-only by default. Its health page is `http://127.0.0.1:8000/heal
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this project's `extension/` folder.
 3. Open a normal website, click the A11yLens icon, then click **Scan this page**.
-4. Use an **Inspect element** button to highlight a target. Use **Get WCAG guidance** on a finding to ask the local API for an explanation. Scanning works locally if the API is offline.
+4. Use **Axe rule help** to read about a rule, or **Inspect element** to highlight a target. Use **Get WCAG guidance** to ask the local API for an explanation. Scanning works locally if the API is offline.
 
 The extension cannot scan Chrome internal pages, the Chrome Web Store, or some protected browser pages. Reload a page after reloading the extension if Chrome reports that the content script is unavailable.
 

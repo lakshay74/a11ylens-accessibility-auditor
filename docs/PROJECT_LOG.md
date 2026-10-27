@@ -11,6 +11,7 @@ This file keeps the working state and decisions in the repository so project con
 - Manifest V3 browser extension scans the active page only after the user starts a scan.
 - axe-core findings and manual-review results appear in the popup; users can highlight targets.
 - The popup can export a JSON summary. It does not put page HTML, failure summaries, selectors, URL credentials, query parameters, or fragments into the export.
+- Finding cards link to axe rule guidance when the URL is on Deque University's HTTPS domain.
 - Branded PNG icons are included in the manifest, with a Windows script to regenerate the icon sizes.
 - FastAPI returns local guidance. Optional Groq explanations are disabled unless `GROQ_API_KEY` is configured.
 - WCAG 2.2 A/AA summaries are checked in under `backend/data/`. Retrieval uses curated rule mappings first and TF-IDF by default; local embeddings + FAISS are optional.
