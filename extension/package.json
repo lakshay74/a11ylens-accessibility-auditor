@@ -1,0 +1,12 @@
+{
+  "name": "a11ylens-extension-assets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Build-time dependency for the A11yLens Chrome extension.",
+  "scripts": {
+    "build": "node scripts/copy-axe.js"
+  },
+  "devDependencies": {
+    "axe-core": "4.14.0"
+  }
+}

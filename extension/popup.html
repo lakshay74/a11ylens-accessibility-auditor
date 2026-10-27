@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A11yLens</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-mark" aria-hidden="true">A</div>
+        <div>
+          <p class="eyebrow">PAGE ACCESSIBILITY</p>
+          <h1>A11yLens</h1>
+        </div>
+        <span id="backend-status" class="status-pill" role="status">Checking API…</span>
+      </header>
+
+      <section class="scan-panel" aria-labelledby="page-title">
+        <p class="section-label">CURRENT TAB</p>
+        <h2 id="page-title">Open a website to begin</h2>
+        <p class="muted">Scan for WCAG 2.0, 2.1, and 2.2 A/AA issues.</p>
+        <p id="preview-notice" class="preview-notice" role="status" hidden></p>
+        <button id="scan-button" class="primary-button" type="button">Scan this page</button>
+        <p id="scan-status" class="inline-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="results-panel" class="results-panel" aria-labelledby="results-title" hidden>
+        <div class="results-heading">
+          <div>
+            <p class="section-label">SCAN RESULTS</p>
+            <h2 id="results-title">Findings</h2>
+          </div>
+          <div class="results-actions">
+            <button id="export-report" class="quiet-button" type="button" disabled>Export JSON</button>
+            <button id="clear-highlight" class="quiet-button" type="button">Clear outline</button>
+          </div>
+        </div>
+        <div id="summary" class="summary-grid" aria-label="Scan summary"></div>
+        <p class="export-note">The report includes finding summaries. Page HTML and URL query parameters are excluded.</p>
+        <div id="finding-list" class="finding-list"></div>
+        <p class="footnote">Automated checks find common issues. Review the page manually before drawing conclusions.</p>
+      </section>
+
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+      <footer>Runs only when you start a scan.</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

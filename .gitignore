@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets and local configuration
+.env
+backend/.env
+
+# JavaScript dependencies and generated vendor bundle
+node_modules/
+extension/node_modules/
+extension/vendor/axe.min.js
+
+# Editor / operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
