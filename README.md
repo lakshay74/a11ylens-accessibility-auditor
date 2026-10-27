@@ -126,13 +126,13 @@ The extension uses `activeTab` and `scripting` for on-demand page access, `stora
 
 ## Build roadmap
 
-The supplied six-week roadmap is tracked in [docs/ROADMAP.md](docs/ROADMAP.md). Milestones 1–4 are implemented locally; milestone 5 is in progress. A local JSON report export and maintenance docs are now part of that milestone. Evaluation data and outcome measurements remain to be built.
+The supplied six-week roadmap is tracked in [docs/ROADMAP.md](docs/ROADMAP.md). Milestones 1–4 are implemented in this repository; milestone 5 is in progress. A JSON report export and maintenance docs are now part of that milestone. Evaluation data and outcome measurements remain to be built.
 
-The retrieval pipeline is rule-aware and supports a local FAISS index. Its corpus contains short W3C Understanding summaries for WCAG 2.2 A/AA criteria, not the complete normative standard. Deployment and store publication are future steps; the local backend has not been made public.
+The retrieval pipeline is rule-aware and supports a local FAISS index. Its corpus contains short W3C Understanding summaries for WCAG 2.2 A/AA criteria, not the complete normative standard. The GitHub source repository is public, but the FastAPI backend still runs locally and has not been deployed as a hosted service. Chrome Web Store publication is future work.
 
 ## License notes
 
-The project source is yours to license. axe-core is a separate dependency with its own license and notices; retain those notices when distributing the extension.
+The A11yLens source does not have a license file yet. axe-core is a separate dependency with its own license and notices; retain those notices when distributing the extension.
 
 ## Maintaining this repository
 
