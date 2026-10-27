@@ -240,7 +240,7 @@ function createFindingCard(finding, category, tabId, index) {
   }
 
   if (category === "violation") {
-    const explain = createElement("button", "secondary-button", "Explain with AI");
+    const explain = createElement("button", "secondary-button", "Get WCAG guidance");
     explain.type = "button";
     const explanationContainer = createElement("div", "");
     explain.addEventListener("click", async () => {
@@ -282,7 +282,7 @@ function createFindingCard(finding, category, tabId, index) {
           : error.message);
       } finally {
         explain.disabled = false;
-        explain.textContent = "Explain with AI";
+        explain.textContent = "Get WCAG guidance";
       }
     });
     card.append(explain, explanationContainer);
@@ -319,10 +319,10 @@ async function loadBackendStatus() {
     const response = await fetch(`${API_URL}/health`, { method: "GET" });
     if (!response.ok) throw new Error("API unavailable");
     const data = await response.json();
-    status.textContent = data.groq_configured ? "AI API ready" : "Local guidance";
+    status.textContent = data.groq_configured ? "AI explanations ready" : "Local explanations ready";
     status.classList.add("online");
   } catch {
-    status.textContent = "API offline";
+    status.textContent = "Scanner ready · API offline";
     status.classList.add("offline");
   }
 }

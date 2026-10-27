@@ -66,7 +66,7 @@ Some nested frame or shadow-DOM targets may not be directly locatable by this st
 
 ## 5. How the explanation request works
 
-When you press **Explain with AI**, `popup.js` sends a `POST /explain` request to `http://127.0.0.1:8000`. The JSON body contains the axe rule ID, description, impact, selector, one short HTML snippet, and axe-core's failure summary for that element. The API rejects unknown fields and limits each string's length.
+When you press **Get WCAG guidance**, `popup.js` sends a `POST /explain` request to `http://127.0.0.1:8000`. The JSON body contains the axe rule ID, description, impact, selector, one short HTML snippet, and axe-core's failure summary for that element. The API rejects unknown fields and limits each string's length. Page scanning itself does not require the backend.
 
 The request flow is:
 
@@ -90,7 +90,7 @@ The corpus stores concise summaries from W3C WAI's Understanding documents and l
 2. Trace `A11YLENS_SCAN_ACTIVE_TAB` from the button in `popup.js` to `background.js`.
 3. Read `runScan()` in `content.js` and compare its fields with the `finding` object above.
 4. Follow an **Inspect element** button through `popup.js` to `highlight()` in `content.js`.
-5. Follow **Explain with AI** from `popup.js` to the Pydantic model and `/explain` route in `backend/main.py`.
+5. Follow **Get WCAG guidance** from `popup.js` to the Pydantic model and `/explain` route in `backend/main.py`.
 6. Read `RULE_TO_CRITERIA` and `retrieve_criteria()` in `backend/rag.py`, then compare the FAISS path with its TF-IDF fallback.
 
 ## 8. Exporting a scan report

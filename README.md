@@ -12,7 +12,7 @@ The name uses **a11y**, a common numeronym for accessibility, and **lens** for i
 - Affected elements can be highlighted on the page.
 - Scan results can be exported as a JSON report. The export omits page HTML, URL query parameters, and URL fragments.
 - A FastAPI endpoint retrieves relevant WCAG criteria and returns local guidance. If a Groq key is configured, it also returns an AI explanation and suggested HTML.
-- The Groq key stays in the backend `.env` file. The extension sends only the selected finding's short HTML snippet when you click **Explain with AI**.
+- The Groq key stays in the backend `.env` file. The extension sends only the selected finding's short HTML snippet when you request **Get WCAG guidance**.
 
 Automated accessibility scanners cannot judge every requirement. An axe result is a useful audit, not proof that a page conforms to WCAG.
 
@@ -114,13 +114,13 @@ The API is local-only by default. Its health page is `http://127.0.0.1:8000/heal
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this project's `extension/` folder.
 3. Open a normal website, click the A11yLens icon, then click **Scan this page**.
-4. Use an **Inspect element** button to highlight a target. Use **Explain with AI** on a finding to ask the local API for WCAG guidance.
+4. Use an **Inspect element** button to highlight a target. Use **Get WCAG guidance** on a finding to ask the local API for an explanation. Scanning works locally if the API is offline.
 
 The extension cannot scan Chrome internal pages, the Chrome Web Store, or some protected browser pages. Reload a page after reloading the extension if Chrome reports that the content script is unavailable.
 
 ## Data and privacy
 
-Scanning runs in the page after you invoke it. It does not send a whole page to the backend. When you choose **Explain with AI**, the extension sends the selected axe rule, description, impact, target selector, and a short HTML snippet to the local backend. If `GROQ_API_KEY` is configured, that selected finding is then sent from the backend to Groq. Do not send a finding from a page containing information you do not want to share with the configured provider.
+Scanning runs in the page after you invoke it. It does not send a whole page to the backend. When you choose **Get WCAG guidance**, the extension sends the selected axe rule, description, impact, target selector, and a short HTML snippet to the local backend. If `GROQ_API_KEY` is configured, that selected finding is then sent from the backend to Groq. Do not send a finding from a page containing information you do not want to share with the configured provider.
 
 The extension uses `activeTab` and `scripting` for on-demand page access, `storage` for temporary scan results, and a localhost host permission for the local API. It does not need a Groq key or access to every page at install time.
 
