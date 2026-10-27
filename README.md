@@ -124,20 +124,19 @@ Scanning runs in the page after you invoke it. It does not send a whole page to 
 
 The extension uses `activeTab` and `scripting` for on-demand page access, `storage` for temporary scan results, and a localhost host permission for the local API. It does not need a Groq key or access to every page at install time.
 
-## Build roadmap
+## Where the project stands
 
-The supplied six-week roadmap is tracked in [docs/ROADMAP.md](docs/ROADMAP.md). Milestones 1–4 are implemented in this repository; milestone 5 is in progress. A JSON report export and maintenance docs are now part of that milestone. Evaluation data and outcome measurements remain to be built.
+I'm following the six-week plan in [docs/ROADMAP.md](docs/ROADMAP.md). The scanner, local explanation API, and WCAG reference search are in the project now. I also added a JSON report export. I still need to make demo pages and keep notes on how useful the findings are when fixing a page.
 
-The retrieval pipeline is rule-aware and supports a local FAISS index. Its corpus contains short W3C Understanding summaries for WCAG 2.2 A/AA criteria, not the complete normative standard. The GitHub source repository is public, but the FastAPI backend still runs locally and has not been deployed as a hosted service. Chrome Web Store publication is future work.
+The WCAG reference set uses short summaries from W3C pages, not the full standard. The source code is public here on GitHub, but the FastAPI server still runs on my computer. I haven't hosted the API or published the extension in the Chrome Web Store.
 
-## License notes
+## License
 
-The A11yLens source does not have a license file yet. axe-core is a separate dependency with its own license and notices; retain those notices when distributing the extension.
+I haven't chosen a license for A11yLens yet. The axe-core license and notices are kept under `extension/vendor`.
 
-## Maintaining this repository
+## Keeping the project organized
 
-- Follow [CONTRIBUTING.md](CONTRIBUTING.md) for the local build and change workflow.
-- Review [CHANGELOG.md](CHANGELOG.md) when preparing a release.
-- Keep the data-flow draft in [docs/PRIVACY.md](docs/PRIVACY.md) aligned with code and review it before publication.
-- Use the GitHub issue templates for bug reports and feature ideas.
-- Keep `backend/.env` and other secrets out of commits. The project does not have a chosen source license yet; decide that before inviting reuse or publishing a release.
+- [CONTRIBUTING.md](CONTRIBUTING.md) has the build steps.
+- [CHANGELOG.md](CHANGELOG.md) records changes, and [docs/PROJECT_LOG.md](docs/PROJECT_LOG.md) keeps the current decisions and next steps.
+- I keep the data-flow notes in [docs/PRIVACY.md](docs/PRIVACY.md) so I can update them if the code changes.
+- Never commit `backend/.env` or API keys.
