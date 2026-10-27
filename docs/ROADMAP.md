@@ -38,11 +38,13 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [ ] Review keyboard navigation, screen-reader announcements, and popup layout using manual assistive-technology checks.
 - [ ] Refine report naming and presentation based on evaluation feedback.
 
-## Week 6 — Release preparation: not started
+## Week 6 — Release preparation: started
 
 - [ ] Choose a source license and confirm third-party notices.
-- [ ] Add final extension icons and screenshots.
+- [x] Add branded extension icon assets and a Windows regeneration script.
+- [ ] Capture final extension screenshots.
 - [ ] Review permissions, privacy disclosures, backend deployment risks, and API-key handling.
+- [x] Draft a code-matched local-development privacy disclosure; publication review remains.
 - [ ] Decide whether to keep the backend local-only or design a secured hosted service.
 - [ ] Prepare Chrome Web Store materials if distribution is desired.
 

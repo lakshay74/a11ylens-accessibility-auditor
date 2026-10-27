@@ -18,6 +18,14 @@ npm run build
 
 The build copies axe-core from the pinned npm dependency into `extension/vendor/`. The generated `axe.min.js` file is ignored by Git; retain the third-party license and notice files in the repository.
 
+To regenerate the checked-in icon PNGs on Windows after changing their design:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\build-icons.ps1
+```
+
+The build script is the source for those PNGs; review the resulting assets before committing visual changes.
+
 ## Run the backend
 
 From the repository root:
@@ -39,6 +47,7 @@ Keep real API keys in `backend/.env`. Never commit that file, keys, private page
 - Do not describe an automated result as proof of WCAG conformance.
 - Preserve W3C links and axe-core license notices.
 - Describe user-visible changes in `CHANGELOG.md` and keep `docs/ROADMAP.md` / `docs/PROJECT_LOG.md` current.
+- Keep `docs/PRIVACY.md` aligned with extension storage, API requests, and any provider changes.
 
 ## GitHub issues
 

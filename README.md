@@ -41,7 +41,9 @@ See [the roadmap](docs/ROADMAP.md) for milestones and [the project log](docs/PRO
 
 ```text
 extension/                 Chrome extension source
+  icons/                   Extension toolbar and store icons
   scripts/copy-axe.js      Copies the installed axe-core bundle into the extension
+  scripts/build-icons.ps1  Regenerates PNG icons on Windows
   background.js            Injects scanner files only after a user starts a scan
   content.js               Runs axe and highlights selected targets
   popup.html / popup.css   Accessible popup UI
@@ -136,5 +138,6 @@ The project source is yours to license. axe-core is a separate dependency with i
 
 - Follow [CONTRIBUTING.md](CONTRIBUTING.md) for the local build and change workflow.
 - Review [CHANGELOG.md](CHANGELOG.md) when preparing a release.
+- Keep the data-flow draft in [docs/PRIVACY.md](docs/PRIVACY.md) aligned with code and review it before publication.
 - Use the GitHub issue templates for bug reports and feature ideas.
 - Keep `backend/.env` and other secrets out of commits. The project does not have a chosen source license yet; decide that before inviting reuse or publishing a release.
