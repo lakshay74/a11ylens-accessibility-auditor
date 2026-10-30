@@ -26,6 +26,7 @@ This file keeps the working state and decisions in the repository so project con
 - FastAPI returns local guidance. Optional Groq explanations are disabled unless `GROQ_API_KEY` is configured.
 - WCAG 2.2 A/AA summaries are checked in under `backend/data/`. Retrieval uses curated rule mappings first and TF-IDF by default; local embeddings + FAISS are optional.
 - A local guidance smoke check covered six synthetic rule requests. The API was healthy and returned local TF-IDF guidance; Groq was not configured. The exact results are below. This is a smoke check, not a measured accuracy evaluation.
+- After the backend was restarted, the user confirmed that **Get WCAG guidance** worked from the extension popup. This verifies one popup-to-local-API request; the selected axe rule and whether the card was a violation or manual-review card were not recorded. Groq remained unconfigured, so this was the local-guidance path.
 - The bundled axe-core 4.14.0 rule table tags `link-name` with both `wcag244` and `wcag412`; `backend/rag.py` now directly maps it to 2.4.4 and 4.1.2. Axe criterion tags are currently omitted from A11yLens scan output by `extension/content.js`'s `serializeRule()`.
 - Backend binds to `127.0.0.1` in the documented development command.
 
@@ -79,6 +80,8 @@ Then open `brave://extensions`, enable Developer mode, choose **Load unpacked**,
 | `aria-valid-attr-value` | 4.1.2 | 4.1.2 (`wcag412`) |
 
 All six responses included the expected axe-tagged criterion. The extra criteria are retrieval results beyond the direct axe tag. No request errors occurred. These controlled smoke-check requests do not measure retrieval accuracy on real findings. Axe tags can be used as rule-to-criterion reference labels or to measure tag agreement, but they are not independent human-verified gold labels for whether a specific page finding is correct. Tags are not included in the current scan payload because `serializeRule()` drops `rule.tags`.
+
+After this API check, the backend had been stopped. The user later saw the popup's local-backend connection message, then confirmed that **Get WCAG guidance** worked after FastAPI was started again and `/health` returned `ok`. The selected rule and card category were not recorded, so this confirms the local popup-to-API path without claiming that a particular manual-review card was tested.
 
 See [the detailed project progress and technical handoff](A11YLENS_PROJECT_PROGRESS_REPORT.md) and its [shareable PDF](../output/pdf/A11yLens_Project_Progress_Report.pdf) for a full snapshot of implementation, privacy boundaries, repository files, history, and setup observations.
 

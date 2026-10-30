@@ -123,6 +123,8 @@ On 2026-10-30, the local backend's `/health` endpoint returned `status: ok` with
 
 The axe-tagged criterion appears in each response. Additional criteria in a response were supplied by lexical retrieval. The `link-name` mapping was updated after the bundled axe-core 4.14.0 rule table confirmed both `wcag244` and `wcag412`. The official [axe-core rule descriptions](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md?plain=1) list the rule tags; they can be used as rule-to-criterion references or for an axe-tag-agreement measure. They are not independent human-verified ground truth for whether a particular page finding is correct. A11yLens currently omits `rule.tags` from scan output because `serializeRule()` in `extension/content.js` does not copy the field. These synthetic calls are a smoke check, not an accuracy evaluation; the Groq path was not exercised.
 
+After the six API requests, the backend had been stopped. The user later confirmed that **Get WCAG guidance** worked from the extension popup after FastAPI was restarted and `/health` returned `ok`. This confirms one popup-to-local-API request in local mode. The selected rule and result-card category were not recorded, and Groq was not configured.
+
 ## 4. Privacy, security, and third-party handling
 
 ### 4.1 What stays local and what can leave the computer
@@ -260,7 +262,7 @@ Still pending:
 - Frame, shadow DOM, dynamically changing pages, and browser-protected pages can limit scanning or highlighting.
 - No demo/repair evaluation set or measured coverage results are currently documented.
 - The browser popup and extension have not completed a manual keyboard or screen-reader evaluation in this project record.
-- The repo contains no automated test suite. The user reports testing the initial T1 labels on `https://penny-juice.com` successfully. The current popup JavaScript passed `node --check`, but the follow-up that shows the cross-category note once and adds manual-review guidance has not been exercised in Brave. The report PDF has been rendered and visually inspected.
+- The repo contains no automated test suite. The user reports testing the initial T1 labels on `https://penny-juice.com` successfully. The current popup JavaScript passed `node --check`, and the user confirmed one **Get WCAG guidance** request worked after restarting FastAPI. The selected rule and card type were not recorded, so the one-time cross-category note and manual-review guidance presentation still need a specific browser check. The report PDF has been rendered and visually inspected.
 - The attached review reports that four screenshots show a `claude.ai` scan with 3 violation rules, 4 affected violation elements, and 4 manual-review rules. This is a single observed page, not a repeatable evaluation, and this session did not reproduce it.
 - The review warns that personal browser details, including an inbox count, private chat titles, and bookmarks, were visible in screenshots. Use a clean browser profile and a seeded demo page for future public captures.
 - The review says inspect buttons, sample HTML, and axe-help links were visible, but their behavior was not shown. The export button was visible, but the downloaded report contents were not reviewed.
