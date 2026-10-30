@@ -34,9 +34,10 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [x] Add a local JSON export for scan summaries. The schema excludes page HTML and removes URL credentials, query parameters, and fragments.
 - [x] Link findings to the related axe rule guidance when the source is a trusted Deque University HTTPS page.
 - [x] Use neutral labels for manual-review impact, clarify summary count units, explain when one axe rule has both result types, and offer clearly labeled review guidance on manual-review cards.
+- [x] Smoke-check local guidance for six axe rules and record API results against axe 4.14.0's criterion tags. This is a local retrieval check, not a formal accuracy evaluation; Groq mode was not tested.
 - [x] Add GitHub maintenance docs, a changelog, and issue templates.
 - [ ] Create a small, clearly labeled set of accessible and intentionally flawed demo pages for repeatable manual evaluation.
-- [ ] Record scan coverage and repair outcomes without claiming automated conformance.
+- [ ] Record scan coverage, retrieval agreement, and repair outcomes on a repeatable evaluation set without claiming automated conformance. Axe tags may be a reference baseline, not independent ground truth.
 - [ ] Review keyboard navigation, screen-reader announcements, and popup layout using manual assistive-technology checks.
 - [ ] Refine report naming and presentation based on evaluation feedback.
 

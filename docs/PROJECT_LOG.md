@@ -8,7 +8,8 @@ This file keeps the working state and decisions in the repository so project con
 
 **Public repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor
 **Tracked branch:** `main` (remote: `origin`)
-**Implementation snapshot before this log update:** `e9a6e50` - Link findings to axe rule guidance
+**GitHub baseline:** `e9a6e50` - Link findings to axe rule guidance
+**Latest local commit:** `d4d241f` - Clarify manual review guidance and results (not pushed)
 
 ## Current implementation
 
@@ -23,6 +24,8 @@ This file keeps the working state and decisions in the repository so project con
 - The popup detects when it is opened as a local file, disables scanning, and tells the user how to load the unpacked extension in Brave. The extension-manager screenshot confirms Brave listed version 0.1.0. Separately, the supplied review reports one scan on `claude.ai`; that scan has not been reproduced in this session.
 - FastAPI returns local guidance. Optional Groq explanations are disabled unless `GROQ_API_KEY` is configured.
 - WCAG 2.2 A/AA summaries are checked in under `backend/data/`. Retrieval uses curated rule mappings first and TF-IDF by default; local embeddings + FAISS are optional.
+- A local guidance smoke check covered six synthetic rule requests. The API was healthy and returned local TF-IDF guidance; Groq was not configured. The exact results are below. This is a smoke check, not a measured accuracy evaluation.
+- The bundled axe-core 4.14.0 rule table tags `link-name` with both `wcag244` and `wcag412`; `backend/rag.py` now directly maps it to 2.4.4 and 4.1.2. Axe criterion tags are currently omitted from A11yLens scan output by `extension/content.js`'s `serializeRule()`.
 - Backend binds to `127.0.0.1` in the documented development command.
 
 ## Decisions to preserve
@@ -54,12 +57,27 @@ Then open `brave://extensions`, enable Developer mode, choose **Load unpacked**,
 
 ## Next work
 
-1. Verify local guidance on `aria-required-children`, `color-contrast`, `target-size`, `label-content-name-mismatch`, and `aria-valid-attr-value`; record the top-three WCAG criteria and any errors. This has not been run in this session.
-2. Create a small repeatable evaluation set and record detection, retrieval, and repair outcomes without presenting them as a WCAG conformance verdict.
+1. Build a small repeatable evaluation set and record detection, retrieval, and repair outcomes without presenting them as a WCAG conformance verdict. Treat axe's rule tags as a comparison reference, not independent ground truth.
+2. Verify the Groq-backed explanation path when a key is deliberately configured; the current check exercised local-only mode.
 3. Decide how real users should get guidance before changing the backend or extension permissions; the current API remains local-only.
 4. Review popup keyboard and screen-reader behavior, and investigate frame and shadow DOM limits.
 5. Review privacy hardening before sending any finding content to Groq; any change to outgoing page data needs an explicit product decision.
 6. Choose a source license and prepare screenshots using a clean profile and demo page. Prepare store materials only if distribution is desired.
+
+## Local guidance smoke check (2026-10-30)
+
+`GET /health` returned `status: ok`, `service: A11yLens API`, and `groq_configured: false`. Six synthetic `POST /explain` requests ran in local mode using `TF-IDF lexical retrieval plus axe rule mapping`:
+
+| Axe rule | WCAG criteria returned, in API order | Axe 4.14.0 WCAG tag reference |
+| --- | --- | --- |
+| `color-contrast` | 1.4.3, 1.4.1, 1.4.11 | 1.4.3 (`wcag143`) |
+| `link-name` | 2.4.4, 4.1.2, 2.5.3 | 2.4.4 (`wcag244`), 4.1.2 (`wcag412`) |
+| `aria-required-children` | 1.3.1 | 1.3.1 (`wcag131`) |
+| `target-size` | 2.5.8, 1.4.4 | 2.5.8 (`wcag258`) |
+| `label-content-name-mismatch` | 2.5.3, 1.3.5, 1.3.3 | 2.5.3 (`wcag253`) |
+| `aria-valid-attr-value` | 4.1.2 | 4.1.2 (`wcag412`) |
+
+All six responses included the expected axe-tagged criterion. The extra criteria are retrieval results beyond the direct axe tag. No request errors occurred. These controlled smoke-check requests do not measure retrieval accuracy on real findings. Axe tags can be used as rule-to-criterion reference labels or to measure tag agreement, but they are not independent human-verified gold labels for whether a specific page finding is correct. Tags are not included in the current scan payload because `serializeRule()` drops `rule.tags`.
 
 See [the detailed project progress and technical handoff](A11YLENS_PROJECT_PROGRESS_REPORT.md) and its [shareable PDF](../output/pdf/A11yLens_Project_Progress_Report.pdf) for a full snapshot of implementation, privacy boundaries, repository files, history, and setup observations.
 

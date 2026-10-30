@@ -29,7 +29,7 @@ RULE_TO_CRITERIA: dict[str, list[str]] = {
     "role-img-alt": ["1.1.1"],
     "color-contrast": ["1.4.3"],
     "document-title": ["2.4.2"],
-    "link-name": ["2.4.4"],
+    "link-name": ["2.4.4", "4.1.2"],
     "heading-order": ["1.3.1"],
     "aria-required-children": ["1.3.1"],
     "html-has-lang": ["3.1.1"],

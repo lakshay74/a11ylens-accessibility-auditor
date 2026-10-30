@@ -2,7 +2,8 @@
 
 **Snapshot date:** 30 October 2026<br>
 **Latest GitHub baseline:** `e9a6e50` on `main`<br>
-**Local state:** T1 popup wording and handoff documentation are not yet committed or pushed.<br>
+**Latest T1 commit:** `d4d241f` - Clarify manual review guidance and results (local only)<br>
+**T2 status:** `link-name` now maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
 **Project repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor<br>
 **Project stage:** Week 5 evaluation and interface polish; Week 6 release preparation started
 
@@ -30,7 +31,8 @@ The name is **A11yLens**: `a11y` is a common numeronym for accessibility, and `l
 | Git branch | `main` |
 | Public source repository | `lakshay74/a11ylens-accessibility-auditor` |
 | Latest commit on GitHub at the time of this report | `e9a6e50` - Link findings to axe rule guidance |
-| Local changes after that baseline | T1 result labeling and handoff documentation; not committed or pushed |
+| T1 local commit after that baseline | `d4d241f` contains the T1 result-label follow-ups and handoff docs; it has not been pushed |
+| T2 implementation status | Added the `link-name` criterion mapping and verified local guidance for six synthetic requests; not pushed |
 | Backend | Python FastAPI, local-development service |
 | AI provider | Optional Groq API; off unless `GROQ_API_KEY` is configured |
 | WCAG reference set | 55 WCAG 2.2 A/AA summaries linked to W3C WAI Understanding pages |
@@ -100,10 +102,25 @@ Before export, the URL's username, password, query string, and fragment are remo
 - The checked-in set currently contains 31 Level A records and 24 Level AA records. Appendix A lists the exact IDs and titles from the corpus at this snapshot.
 - The corpus contains summaries from W3C WAI Understanding pages, not the complete normative WCAG standard. The project documentation says to follow the links and review the applicable criterion before making conformance decisions.
 - `backend/scripts/build_wcag_corpus.py` can refresh the corpus. It reads the W3C index and pages, extracts the In Brief guidance, filters to A and AA criteria, retries page requests, sorts records, and writes a temporary file before replacing the corpus file.
-- `backend/rag.py` has curated mappings for 16 common axe rule IDs. Known mappings are added first; the retrieval path then fills up to three criteria using semantic or lexical ranking.
+- `backend/rag.py` has curated mappings for 16 common axe rule IDs, including `link-name` to 2.4.4 and 4.1.2. Known mappings are added first; the retrieval path then fills up to three criteria using semantic or lexical ranking.
 - TF-IDF-style lexical retrieval is the default lightweight path and is available without the optional model packages.
 - Optional local semantic retrieval uses Sentence Transformers with `sentence-transformers/all-MiniLM-L6-v2` and FAISS cosine-similarity search. The model is downloaded to the local model cache on first use, and the index is built in memory for the API process. If the packages or model fail to load, the code falls back to TF-IDF.
 - `backend/requirements-rag.txt` holds the optional Sentence Transformers and FAISS dependencies separately from the basic backend requirements.
+
+### 3.7 Local guidance smoke check
+
+On 2026-10-30, the local backend's `/health` endpoint returned `status: ok` with `groq_configured: false`. Six synthetic `POST /explain` requests completed without errors in local mode using `TF-IDF lexical retrieval plus axe rule mapping`:
+
+| Axe rule | Criteria returned, in API order | Axe 4.14.0 rule-tag criterion(s) |
+| --- | --- | --- |
+| `color-contrast` | 1.4.3, 1.4.1, 1.4.11 | 1.4.3 (`wcag143`) |
+| `link-name` | 2.4.4, 4.1.2, 2.5.3 | 2.4.4 (`wcag244`), 4.1.2 (`wcag412`) |
+| `aria-required-children` | 1.3.1 | 1.3.1 (`wcag131`) |
+| `target-size` | 2.5.8, 1.4.4 | 2.5.8 (`wcag258`) |
+| `label-content-name-mismatch` | 2.5.3, 1.3.5, 1.3.3 | 2.5.3 (`wcag253`) |
+| `aria-valid-attr-value` | 4.1.2 | 4.1.2 (`wcag412`) |
+
+The axe-tagged criterion appears in each response. Additional criteria in a response were supplied by lexical retrieval. The `link-name` mapping was updated after the bundled axe-core 4.14.0 rule table confirmed both `wcag244` and `wcag412`. The official [axe-core rule descriptions](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md?plain=1) list the rule tags; they can be used as rule-to-criterion references or for an axe-tag-agreement measure. They are not independent human-verified ground truth for whether a particular page finding is correct. A11yLens currently omits `rule.tags` from scan output because `serializeRule()` in `extension/content.js` does not copy the field. These synthetic calls are a smoke check, not an accuracy evaluation; the Groq path was not exercised.
 
 ## 4. Privacy, security, and third-party handling
 
@@ -174,7 +191,7 @@ The public repository is `https://github.com/lakshay74/a11ylens-accessibility-au
 | `108a88c` | 2026-10-28 | Simplify README project notes |
 | `e9a6e50` | 2026-10-28 | Link findings to axe rule guidance |
 
-The Git status was clean at the `e9a6e50` baseline before the handoff report and T1 wording updates. The handoff documents and T1 changes are now in the local working tree and have not been committed or pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
+The Git status was clean at the `e9a6e50` baseline before the handoff report and T1 wording updates. T1 is recorded in local commit `d4d241f`; it has not been pushed. The T2 mapping and local API smoke-check are recorded in this snapshot and have not been pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
 
 ### Work completed during the project so far
 
@@ -186,6 +203,7 @@ The Git status was clean at the `e9a6e50` baseline before the handoff report and
 - Refined the setup flow after the popup was first opened as a local file and displayed `Cannot read properties of undefined (reading 'sendMessage')`. The popup now detects when it is not running as an extension, disables the scan action, and explains how to load the unpacked extension in Brave.
 - The user showed the extension listed in Brave's Extensions manager as A11yLens - Accessibility Auditor, version 0.1.0. That screenshot confirms extension loading, not scan behavior. The later review separately reports a scan on `claude.ai`; that scan was not reproduced in this session.
 - Clarified the README so it describes the public source repository separately from the locally run API, and so it does not imply an unchosen source license.
+- Tested the local API health route and six synthetic guidance requests. All six returned the criterion associated with the bundled axe 4.14.0 rule tag; `link-name` returned both 2.4.4 and 4.1.2 after its mapping was corrected.
 
 ## 7. Roadmap status: completed, partial, and pending
 
@@ -207,11 +225,12 @@ The local 55-record W3C summary corpus, common axe mappings, TF-IDF fallback, an
 
 ### Week 5 - Evaluation and interface polish: in progress
 
-Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, and T1 changes for manual-review labels and guidance, count units, and one-time duplicate-result notes.
+Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, T1 changes for manual-review labels and guidance, count units, and one-time duplicate-result notes, plus a six-rule local guidance smoke check and the missing `link-name` 4.1.2 mapping.
 
 Still pending:
 
-- Verify local and AI guidance for `aria-required-children`, `color-contrast`, `target-size`, `label-content-name-mismatch`, and `aria-valid-attr-value`; record the returned criteria and errors. No such results are recorded yet.
+- Build a repeatable evaluation set to measure detection, retrieval agreement, and repair outcomes. The six local requests used synthetic inputs and are only a smoke check; Groq mode remains untested.
+- Review the popup follow-up in Brave: the user's earlier penny-juice.com check covered the original T1 wording, not the latest one-time note and manual-review guidance controls.
 - Create a small repeatable set of accessible and intentionally flawed demo pages.
 - Record what the scanner catches and whether fixes improve those sample pages, while avoiding claims of automated WCAG conformance.
 - Manually review popup keyboard use, screen-reader announcements, and layout with assistive technology.
@@ -238,12 +257,12 @@ Still pending:
 - Frame, shadow DOM, dynamically changing pages, and browser-protected pages can limit scanning or highlighting.
 - No demo/repair evaluation set or measured coverage results are currently documented.
 - The browser popup and extension have not completed a manual keyboard or screen-reader evaluation in this project record.
-- The repo contains no automated test suite. The user reports testing the initial T1 labels on `https://penny-juice.com` successfully. The current popup JavaScript passes `node --check`, but the follow-up that shows the cross-category note once and adds manual-review guidance has not been exercised in Brave. The report PDF has been rendered and visually inspected.
+- The repo contains no automated test suite. The user reports testing the initial T1 labels on `https://penny-juice.com` successfully. The current popup JavaScript passed `node --check`, but the follow-up that shows the cross-category note once and adds manual-review guidance has not been exercised in Brave. The report PDF has been rendered and visually inspected.
 - The attached review reports that four screenshots show a `claude.ai` scan with 3 violation rules, 4 affected violation elements, and 4 manual-review rules. This is a single observed page, not a repeatable evaluation, and this session did not reproduce it.
 - The review warns that personal browser details, including an inbox count, private chat titles, and bookmarks, were visible in screenshots. Use a clean browser profile and a seeded demo page for future public captures.
 - The review says inspect buttons, sample HTML, and axe-help links were visible, but their behavior was not shown. The export button was visible, but the downloaded report contents were not reviewed.
-- The review observed the API-offline status, so it did not establish that local guidance or Groq explanations work end to end. It specifically recommends checking retrieval for the five axe rules listed under Week 5.
-- `content.js` serializes axe rule IDs, descriptions, impacts, help URLs, nodes, and counts, but it does not include each rule's `tags` in the scan output. The raw axe result can provide criterion tags, but A11yLens would need to retain them before using them in an evaluation report.
+- The review observed the API-offline status. A later local check confirmed `/health` and local-only guidance for six synthetic rule requests; Groq explanations have not been tested.
+- `content.js` serializes axe rule IDs, descriptions, impacts, help URLs, nodes, and counts, but it does not include each rule's `tags` in the scan output. The bundled axe-core 4.14.0 rule descriptions expose criterion tags, including both `wcag244` and `wcag412` for `link-name`. Those tags can serve as rule-to-criterion reference labels or support a tag-agreement metric, but not independent human ground truth for the correctness of a page-level finding. A11yLens would need to retain the tags to compare them with guidance results programmatically.
 - No source license, hosted backend, Chrome Web Store release, or formal privacy/store review has been completed.
 
 ## 9. How to run the current local development version
@@ -370,7 +389,7 @@ These are the direct mappings defined by `RULE_TO_CRITERIA` in `backend/rag.py`.
 | `role-img-alt` | 1.1.1 |
 | `color-contrast` | 1.4.3 |
 | `document-title` | 2.4.2 |
-| `link-name` | 2.4.4 |
+| `link-name` | 2.4.4, 4.1.2 |
 | `heading-order` | 1.3.1 |
 | `aria-required-children` | 1.3.1 |
 | `html-has-lang` | 3.1.1 |
