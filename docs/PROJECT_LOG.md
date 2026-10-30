@@ -9,7 +9,8 @@ This file keeps the working state and decisions in the repository so project con
 **Public repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor
 **Tracked branch:** `main` (remote: `origin`)
 **GitHub baseline:** `e9a6e50` - Link findings to axe rule guidance
-**Latest local commit:** `d4d241f` - Clarify manual review guidance and results (not pushed)
+**T1 local commit:** `d4d241f` - Clarify manual review guidance and results (not pushed)
+**T2 local commit:** `236f35d` - Verify local guidance mappings (not pushed)
 
 ## Current implementation
 

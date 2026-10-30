@@ -3,7 +3,8 @@
 **Snapshot date:** 30 October 2026<br>
 **Latest GitHub baseline:** `e9a6e50` on `main`<br>
 **Latest T1 commit:** `d4d241f` - Clarify manual review guidance and results (local only)<br>
-**T2 status:** `link-name` now maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
+**T2 implementation commit:** `236f35d` - Verify local guidance mappings (local only)<br>
+**T2 result:** `link-name` maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
 **Project repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor<br>
 **Project stage:** Week 5 evaluation and interface polish; Week 6 release preparation started
 
@@ -32,7 +33,7 @@ The name is **A11yLens**: `a11y` is a common numeronym for accessibility, and `l
 | Public source repository | `lakshay74/a11ylens-accessibility-auditor` |
 | Latest commit on GitHub at the time of this report | `e9a6e50` - Link findings to axe rule guidance |
 | T1 local commit after that baseline | `d4d241f` contains the T1 result-label follow-ups and handoff docs; it has not been pushed |
-| T2 implementation status | Added the `link-name` criterion mapping and verified local guidance for six synthetic requests; not pushed |
+| T2 local commit | `236f35d` adds the `link-name` criterion mapping and records the six-request local smoke check; it has not been pushed |
 | Backend | Python FastAPI, local-development service |
 | AI provider | Optional Groq API; off unless `GROQ_API_KEY` is configured |
 | WCAG reference set | 55 WCAG 2.2 A/AA summaries linked to W3C WAI Understanding pages |
@@ -180,7 +181,7 @@ The axe-tagged criterion appears in each response. Additional criteria in a resp
 
 ## 6. GitHub and project history
 
-The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. The local `main` branch tracks `origin/main`. The implementation history through the current snapshot contains these commits:
+The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. The local `main` branch tracks `origin/main`. Selected implementation commits through the current T2 snapshot:
 
 | Commit | Date | Change |
 | --- | --- | --- |
@@ -190,8 +191,10 @@ The public repository is `https://github.com/lakshay74/a11ylens-accessibility-au
 | `94d29cc` | 2026-10-27 | Clarify public repository and local backend status |
 | `108a88c` | 2026-10-28 | Simplify README project notes |
 | `e9a6e50` | 2026-10-28 | Link findings to axe rule guidance |
+| `d4d241f` | 2026-10-30 | Clarify manual review guidance and results |
+| `236f35d` | 2026-10-30 | Verify local guidance mappings |
 
-The Git status was clean at the `e9a6e50` baseline before the handoff report and T1 wording updates. T1 is recorded in local commit `d4d241f`; it has not been pushed. The T2 mapping and local API smoke-check are recorded in this snapshot and have not been pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
+The Git status was clean at the `e9a6e50` baseline before the handoff report and T1 wording updates. T1 is recorded in local commit `d4d241f`, and T2 is recorded in local commit `236f35d`; neither commit has been pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
 
 ### Work completed during the project so far
 
