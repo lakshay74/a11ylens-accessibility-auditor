@@ -130,8 +130,11 @@ button:focus-visible {
 .impact-serious { background: #fff0e6; color: #833b0d; }
 .impact-moderate { background: #fff6d9; color: #674900; }
 .impact-minor, .impact-unknown { background: #e8eff4; color: #405667; }
+.impact-review { max-width: 58%; border: 1px solid #cbd8e1; background: #f1f5f8; color: #344d60; line-height: 1.3; text-align: center; text-transform: none; }
 .rule-meta { margin: 5px 0 9px; color: #586979; font-size: 10px; }
 .rule-meta a { color: #11556e; }
+.category-note { margin: -3px 0 8px; color: #586979; font-size: 10px; line-height: 1.4; }
+.guidance-note, .review-disclaimer { margin: 4px 0 7px; color: #405667; font-size: 10px; line-height: 1.4; }
 .action-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .element-action { padding: 4px 0; border: 0; background: transparent; color: #16475b; font-size: 10px; text-decoration: underline; cursor: pointer; }
 .element-actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 5px 0 8px; }

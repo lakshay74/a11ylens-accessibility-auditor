@@ -79,9 +79,9 @@ function selectorForNode(node) {
 function renderSummary(counts) {
   summary.replaceChildren();
   const cells = [
-    [counts.violations, "rule violations"],
-    [counts.affectedElements, "affected elements"],
-    [counts.incomplete, "manual review"]
+    [counts.violations, "violation rules"],
+    [counts.affectedElements, "affected violation elements"],
+    [counts.incomplete, "manual-review rules"]
   ];
 
   for (const [value, label] of cells) {
@@ -159,9 +159,16 @@ function exportReport() {
   scanStatus.textContent = "JSON report downloaded. It excludes page HTML and URL query parameters.";
 }
 
-function appendExplanation(container, data) {
+function appendExplanation(container, data, category) {
   const section = createElement("section", "explanation");
   section.setAttribute("aria-live", "polite");
+  if (category === "manual-review") {
+    section.append(createElement(
+      "p",
+      "review-disclaimer",
+      "Guidance for reviewing a possible issue. axe did not confirm this as a violation."
+    ));
+  }
   section.append(createElement("p", "mode-note", data.mode === "groq"
     ? "AI-assisted explanation with retrieved WCAG guidance. Review the suggested fix before using it."
     : "Local guidance from the WCAG 2.2 reference corpus. Add a Groq key for AI explanations and code suggestions."));
@@ -217,11 +224,15 @@ function makeAxeHelpLink(finding) {
   }
 }
 
-function createFindingCard(finding, category, tabId, index) {
+function createFindingCard(finding, category, tabId, index, showBothGroupsNote) {
   const card = createElement("article", "finding-card");
   const titleRow = createElement("div", "finding-title-row");
   titleRow.append(createElement("h3", "finding-title", finding.description || finding.id));
-  titleRow.append(createElement("span", `impact impact-${finding.impact || "unknown"}`, finding.impact || "unknown"));
+  const impact = finding.impact || "unknown";
+  const isManualReview = category === "manual-review";
+  const impactClass = isManualReview ? "impact impact-review" : `impact impact-${impact}`;
+  const impactLabel = isManualReview ? `Possible issue (${impact})` : impact;
+  titleRow.append(createElement("span", impactClass, impactLabel));
   card.append(titleRow);
 
   const noun = category === "manual-review" ? "Needs manual review" : "Rule";
@@ -229,6 +240,14 @@ function createFindingCard(finding, category, tabId, index) {
   const helpLink = makeAxeHelpLink(finding);
   if (helpLink) meta.append(document.createTextNode(" · "), helpLink);
   card.append(meta);
+
+  if (showBothGroupsNote) {
+    card.append(createElement(
+      "p",
+      "category-note",
+      "Axe returned this rule as both a violation and a manual-review item."
+    ));
+  }
 
   const elementActions = createElement("div", "element-actions");
   const sampleNodes = finding.nodes.slice(0, 3);
@@ -259,9 +278,23 @@ function createFindingCard(finding, category, tabId, index) {
     card.append(snippet);
   }
 
-  if (category === "violation") {
+  if (category === "violation" || category === "manual-review") {
+    const reviewGuidanceId = `review-guidance-${index}`;
+    if (category === "manual-review") {
+      const reviewGuidance = createElement(
+        "p",
+        "guidance-note",
+        "Guidance for reviewing a possible issue, not a confirmed failure."
+      );
+      reviewGuidance.id = reviewGuidanceId;
+      card.append(reviewGuidance);
+    }
+
     const explain = createElement("button", "secondary-button", "Get WCAG guidance");
     explain.type = "button";
+    if (category === "manual-review") {
+      explain.setAttribute("aria-describedby", reviewGuidanceId);
+    }
     const explanationContainer = createElement("div", "");
     explain.addEventListener("click", async () => {
       if (!sampleNodes[0]) {
@@ -294,7 +327,7 @@ function createFindingCard(finding, category, tabId, index) {
 
         const data = await response.json();
         explanationContainer.replaceChildren();
-        appendExplanation(explanationContainer, data);
+        appendExplanation(explanationContainer, data, category);
         if (!explanationContainer.isConnected) card.append(explanationContainer);
       } catch (error) {
         showError(error.name === "TypeError"
@@ -328,8 +361,13 @@ function renderScan(scan, tabId) {
     return;
   }
 
+  const explainedBothGroups = new Set();
   entries.forEach(({ finding, category }, index) => {
-    findingList.append(createFindingCard(finding, category, tabId, index));
+    const otherGroup = category === "violation" ? scan.incomplete : scan.violations;
+    const appearsInBothGroups = (otherGroup || []).some((other) => other.id === finding.id);
+    const showBothGroupsNote = appearsInBothGroups && !explainedBothGroups.has(finding.id);
+    if (appearsInBothGroups) explainedBothGroups.add(finding.id);
+    findingList.append(createFindingCard(finding, category, tabId, index, showBothGroupsNote));
   });
 }
 

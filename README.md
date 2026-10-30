@@ -8,7 +8,7 @@ The name uses **a11y**, a common numeronym for accessibility, and **lens** for i
 
 - Manifest V3 extension with a popup that scans the active tab on demand.
 - axe-core is packaged locally and checks WCAG 2.0, 2.1, and 2.2 A/AA rules.
-- Violations and items needing manual review are shown separately.
+- Violations and items needing manual review are shown separately. Manual-review cards use a neutral "Possible issue" label and offer guidance clearly marked as review help. Summary counts distinguish rules from affected violation elements.
 - Affected elements can be highlighted on the page.
 - Scan results can be exported as a JSON report. The export omits page HTML, URL query parameters, and URL fragments.
 - A FastAPI endpoint retrieves relevant WCAG criteria and returns local guidance. If a Groq key is configured, it also returns an AI explanation and suggested HTML.
@@ -36,6 +36,7 @@ flowchart LR
 
 For a beginner-friendly walkthrough of the files and request flow, see [the architecture guide](docs/ARCHITECTURE.md).
 See [the roadmap](docs/ROADMAP.md) for milestones and [the project log](docs/PROJECT_LOG.md) for current decisions and handoff notes.
+The [detailed project handoff](docs/A11YLENS_PROJECT_PROGRESS_REPORT.md) records the implementation and remaining work; a [shareable PDF copy](output/pdf/A11yLens_Project_Progress_Report.pdf) is included for project handoffs.
 
 ## Project layout
 
@@ -114,7 +115,7 @@ The API is local-only by default. Its health page is `http://127.0.0.1:8000/heal
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this project's `extension/` folder.
 3. Open a normal website, click the A11yLens icon, then click **Scan this page**.
-4. Use **Axe rule help** to read about a rule, or **Inspect element** to highlight a target. Use **Get WCAG guidance** to ask the local API for an explanation. Scanning works locally if the API is offline.
+4. Use **Axe rule help** to read about a rule, or **Inspect element** to highlight a target. Use **Get WCAG guidance** on a violation or manual-review finding. Manual-review guidance is for considering a possible issue, not treating it as a confirmed failure. Scanning works locally if the API is offline.
 
 The extension cannot scan Chrome internal pages, the Chrome Web Store, or some protected browser pages. Reload a page after reloading the extension if Chrome reports that the content script is unavailable.
 

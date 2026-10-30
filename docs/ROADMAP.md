@@ -33,6 +33,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 
 - [x] Add a local JSON export for scan summaries. The schema excludes page HTML and removes URL credentials, query parameters, and fragments.
 - [x] Link findings to the related axe rule guidance when the source is a trusted Deque University HTTPS page.
+- [x] Use neutral labels for manual-review impact, clarify summary count units, explain when one axe rule has both result types, and offer clearly labeled review guidance on manual-review cards.
 - [x] Add GitHub maintenance docs, a changelog, and issue templates.
 - [ ] Create a small, clearly labeled set of accessible and intentionally flawed demo pages for repeatable manual evaluation.
 - [ ] Record scan coverage and repair outcomes without claiming automated conformance.
@@ -43,7 +44,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 
 - [ ] Choose a source license and confirm third-party notices.
 - [x] Add branded extension icon assets and a Windows regeneration script.
-- [ ] Capture final extension screenshots.
+- [ ] Capture final extension screenshots in a clean browser profile on a demo page, with no personal data visible.
 - [ ] Review permissions, privacy disclosures, backend deployment risks, and API-key handling.
 - [x] Draft a code-matched local-development privacy disclosure; publication review remains.
 - [ ] Decide whether to keep the backend local-only or design a secured hosted service.

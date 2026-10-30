@@ -4,6 +4,8 @@ Notable project changes are recorded here. The project is pre-release and may ch
 
 ## Unreleased
 
+- Clarified manual-review labels and summary count units, showed cross-category notes once, and added guidance for possible issues.
+- Added a detailed implementation and roadmap handoff in Markdown and PDF.
 - Added an on-demand JSON scan report with finding summaries and affected-element counts.
 - Added branded extension icon sizes and a Windows regeneration script.
 - Added a project-specific draft privacy disclosure for local and optional Groq data flows.
