@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A11yLens evaluation - intentional issues</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      color: #182230;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #005a8c; }
+    a:focus-visible, input:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible {
+      outline: 3px solid #8a3ffc;
+      outline-offset: 3px;
+    }
+    header, main, footer { max-width: 52rem; margin: 0 auto; padding: 1.25rem; }
+    header { border-bottom: 1px solid #d0d5dd; }
+    header a { color: #123b52; font-weight: 700; }
+    .warning {
+      padding: 0.85rem 1rem;
+      border: 2px solid #9a3412;
+      background: #fff7ed;
+      color: #7c2d12;
+    }
+    .issue { margin-block: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #d0d5dd; }
+    .issue-label { display: block; font-size: 0.9rem; font-weight: 700; }
+    .low-contrast { color: #aaaaaa; background: #ffffff; }
+    .empty-link, .empty-button { display: inline-flex; align-items: center; justify-content: center; }
+    .empty-link { width: 2.5rem; height: 2.5rem; border: 1px solid #667085; }
+    .empty-button { width: 2.5rem; height: 2.5rem; border: 1px solid #667085; background: #f2f4f7; }
+    .tiny-target {
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      min-height: 16px;
+      padding: 0;
+      border: 0;
+      background: #123b52;
+      color: #ffffff;
+      font-size: 10px;
+      line-height: 16px;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    footer { border-top: 1px solid #d0d5dd; color: #344054; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#main-content">A11yLens local evaluation</a>
+  </header>
+  <main id="main-content">
+    <h1>Intentional issues test page</h1>
+    <p class="warning">
+      This synthetic page deliberately contains accessibility issues for local testing.
+      Do not use its patterns in a real site.
+    </p>
+
+    <section class="issue" aria-labelledby="contrast-heading">
+      <h2 id="contrast-heading">Low text contrast</h2>
+      <span class="issue-label">Intended check: color contrast</span>
+      <p class="low-contrast">This light gray text is intentionally difficult to read.</p>
+    </section>
+
+    <section class="issue" aria-labelledby="link-heading">
+      <h2 id="link-heading">Link with no accessible name</h2>
+      <span class="issue-label">Intended check: link name</span>
+      <a class="empty-link" href="#link-heading"><span aria-hidden="true">↗</span></a>
+    </section>
+
+    <section class="issue" aria-labelledby="button-heading">
+      <h2 id="button-heading">Button with no accessible name</h2>
+      <span class="issue-label">Intended check: button name</span>
+      <button class="empty-button" type="button"><span aria-hidden="true">?</span></button>
+    </section>
+
+    <section class="issue" aria-labelledby="form-heading">
+      <h2 id="form-heading">Input without a label</h2>
+      <span class="issue-label">Intended check: form label</span>
+      <input id="unlabeled-email" type="email" autocomplete="email">
+    </section>
+
+    <section class="issue" aria-labelledby="image-heading">
+      <h2 id="image-heading">Image without alternative text</h2>
+      <span class="issue-label">Intended check: image alternative</span>
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width="48" height="48">
+    </section>
+
+    <section class="issue" aria-labelledby="aria-value-heading">
+      <h2 id="aria-value-heading">Invalid ARIA value</h2>
+      <span class="issue-label">Intended check: valid ARIA attribute value</span>
+      <div role="checkbox" aria-checked="perhaps" tabindex="0">Receive local updates</div>
+    </section>
+
+    <section class="issue" aria-labelledby="children-heading">
+      <h2 id="children-heading">Required ARIA child role missing</h2>
+      <span class="issue-label">Intended check: required ARIA children</span>
+      <div role="list"><span>This child has no listitem role.</span></div>
+    </section>
+
+    <section class="issue" aria-labelledby="target-heading">
+      <h2 id="target-heading">Very small touch target</h2>
+      <span class="issue-label">Intended check: target size</span>
+      <button class="tiny-target" type="button" aria-label="Close notice">x</button>
+    </section>
+
+    <section class="issue" aria-labelledby="name-mismatch-heading">
+      <h2 id="name-mismatch-heading">Accessible name does not contain visible label</h2>
+      <span class="issue-label">Intended check: label in name</span>
+      <button type="button" aria-label="Save changes">Delete record</button>
+    </section>
+  </main>
+  <footer>
+    <p>Local synthetic fixture. No information is sent to a service by this page.</p>
+  </footer>
+</body>
+</html>

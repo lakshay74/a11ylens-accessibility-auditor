@@ -2,7 +2,7 @@
 
 This file keeps the working state and decisions in the repository so project context survives beyond a chat session.
 
-**Last updated:** 2026-10-30
+**Last updated:** 2026-11-03
 **Project name:** A11yLens
 **Current stage:** Week 5 - evaluation and interface polish
 
@@ -11,6 +11,7 @@ This file keeps the working state and decisions in the repository so project con
 **GitHub baseline:** `e9a6e50` - Link findings to axe rule guidance
 **T1 local commit:** `d4d241f` - Clarify manual review guidance and results (not pushed)
 **T2 local commit:** `236f35d` - Verify local guidance mappings (not pushed)
+**T3 evaluation setup:** Local fixtures and scan instructions added; browser results are pending and this work is not pushed.
 
 ## Current implementation
 
@@ -28,6 +29,7 @@ This file keeps the working state and decisions in the repository so project con
 - A local guidance smoke check covered six synthetic rule requests. The API was healthy and returned local TF-IDF guidance; Groq was not configured. The exact results are below. This is a smoke check, not a measured accuracy evaluation.
 - After the backend was restarted, the user confirmed that **Get WCAG guidance** worked from the extension popup. This verifies one popup-to-local-API request; the selected axe rule and whether the card was a violation or manual-review card were not recorded. Groq remained unconfigured, so this was the local-guidance path.
 - The bundled axe-core 4.14.0 rule table tags `link-name` with both `wcag244` and `wcag412`; `backend/rag.py` now directly maps it to 2.4.4 and 4.1.2. Axe criterion tags are currently omitted from A11yLens scan output by `extension/content.js`'s `serializeRule()`.
+- Added two local evaluation fixtures, a scan procedure, and a blank results template under `evaluation/`. The intentional issue list is a candidate checklist, not confirmed scan output; no fixture scans or repair outcomes have been recorded yet.
 - Backend binds to `127.0.0.1` in the documented development command.
 
 ## Decisions to preserve
@@ -59,12 +61,13 @@ Then open `brave://extensions`, enable Developer mode, choose **Load unpacked**,
 
 ## Next work
 
-1. Build a small repeatable evaluation set and record detection, retrieval, and repair outcomes without presenting them as a WCAG conformance verdict. Treat axe's rule tags as a comparison reference, not independent ground truth.
-2. Verify the Groq-backed explanation path when a key is deliberately configured; the current check exercised local-only mode.
-3. Decide how real users should get guidance before changing the backend or extension permissions; the current API remains local-only.
-4. Review popup keyboard and screen-reader behavior, and investigate frame and shadow DOM limits.
-5. Review privacy hardening before sending any finding content to Groq; any change to outgoing page data needs an explicit product decision.
-6. Choose a source license and prepare screenshots using a clean profile and demo page. Prepare store materials only if distribution is desired.
+1. Run the two evaluation pages in Brave and record observed violation and manual-review rule IDs in `evaluation/RESULTS_TEMPLATE.md`.
+2. Repair one intentional issue at a time and record before/after results without presenting them as a WCAG conformance verdict. Treat axe's rule tags as a comparison reference, not independent ground truth.
+3. Verify the Groq-backed explanation path when a key is deliberately configured; the current check exercised local-only mode.
+4. Decide how real users should get guidance before changing the backend or extension permissions; the current API remains local-only.
+5. Review popup keyboard and screen-reader behavior, and investigate frame and shadow DOM limits.
+6. Review privacy hardening before sending any finding content to Groq; any change to outgoing page data needs an explicit product decision.
+7. Choose a source license and prepare screenshots using a clean profile and demo page. Prepare store materials only if distribution is desired.
 
 ## Local guidance smoke check (2026-10-30)
 

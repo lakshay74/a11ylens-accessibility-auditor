@@ -1,10 +1,11 @@
 # A11yLens Project Progress and Technical Handoff
 
-**Snapshot date:** 30 October 2026<br>
+**Snapshot date:** 3 November 2026<br>
 **Latest GitHub baseline:** `e9a6e50` on `main`<br>
 **Latest T1 commit:** `d4d241f` - Clarify manual review guidance and results (local only)<br>
 **T2 implementation commit:** `236f35d` - Verify local guidance mappings (local only)<br>
 **T2 result:** `link-name` maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
+**T3 evaluation setup:** Two local fixture pages and a scan protocol are now in `evaluation/`; browser results remain pending.<br>
 **Project repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor<br>
 **Project stage:** Week 5 evaluation and interface polish; Week 6 release preparation started
 
@@ -34,6 +35,7 @@ The name is **A11yLens**: `a11y` is a common numeronym for accessibility, and `l
 | Latest commit on GitHub at the time of this report | `e9a6e50` - Link findings to axe rule guidance |
 | T1 local commit after that baseline | `d4d241f` contains the T1 result-label follow-ups and handoff docs; it has not been pushed |
 | T2 local commit | `236f35d` adds the `link-name` criterion mapping and records the six-request local smoke check; it has not been pushed |
+| T3 evaluation setup | Two local fixtures, scan instructions, and a blank results template; no browser results yet, not pushed |
 | Backend | Python FastAPI, local-development service |
 | AI provider | Optional Groq API; off unless `GROQ_API_KEY` is configured |
 | WCAG reference set | 55 WCAG 2.2 A/AA summaries linked to W3C WAI Understanding pages |
@@ -125,6 +127,12 @@ The axe-tagged criterion appears in each response. Additional criteria in a resp
 
 After the six API requests, the backend had been stopped. The user later confirmed that **Get WCAG guidance** worked from the extension popup after FastAPI was restarted and `/health` returned `ok`. This confirms one popup-to-local-API request in local mode. The selected rule and result-card category were not recorded, and Groq was not configured.
 
+### 3.8 Local evaluation fixtures
+
+`evaluation/demo-pages/accessible-baseline.html` is a low-noise example with semantic landmarks, labeled fields, named controls, and readable contrast. It is not represented as conforming to WCAG. `evaluation/demo-pages/intentional-issues.html` contains nine visibly described candidate issues covering color contrast, link and button names, a missing form label, image alternative text, invalid ARIA value, required ARIA child roles, target size, and label in name. The candidate rule IDs are recorded in `evaluation/README.md`.
+
+The pages are served from `127.0.0.1:8001` using Python's built-in HTTP server, so the extension can scan them as ordinary local web pages. A repeatable procedure and blank observation/repair table are included. **No browser scan has been run on these fixtures yet.** The candidate rule list is not an axe result or an accuracy claim; observed violations and manual-review items must be recorded separately.
+
 ## 4. Privacy, security, and third-party handling
 
 ### 4.1 What stays local and what can leave the computer
@@ -175,6 +183,9 @@ After the six API requests, the backend had been stopped. The user later confirm
 | `docs/PRIVACY.md` | Draft disclosure aligned to current local data flows |
 | `docs/A11YLENS_PROJECT_PROGRESS_REPORT.md` | Detailed implementation, history, privacy, and roadmap handoff source |
 | `output/pdf/A11yLens_Project_Progress_Report.pdf` | Shareable PDF version of this report |
+| `evaluation/demo-pages/` | Low-noise baseline and intentionally flawed local HTML fixtures |
+| `evaluation/README.md` | Local server instructions, candidate checks, and repeatable scan procedure |
+| `evaluation/RESULTS_TEMPLATE.md` | Blank table for observed rule IDs, categories, and repair outcomes |
 | `CONTRIBUTING.md` | Build instructions, coding and privacy guidance, and issue process |
 | `CHANGELOG.md` | User-visible changes recorded in an Unreleased section |
 | `.github/ISSUE_TEMPLATE/bug_report.md` | Bug report template |
@@ -183,7 +194,7 @@ After the six API requests, the backend had been stopped. The user later confirm
 
 ## 6. GitHub and project history
 
-The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. The local `main` branch tracks `origin/main`. Selected implementation commits through the current T2 snapshot:
+The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. The local `main` branch tracks `origin/main`. Selected implementation commits through T2; the T3 evaluation setup is described in section 3.8:
 
 | Commit | Date | Change |
 | --- | --- | --- |
@@ -230,14 +241,13 @@ The local 55-record W3C summary corpus, common axe mappings, TF-IDF fallback, an
 
 ### Week 5 - Evaluation and interface polish: in progress
 
-Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, T1 changes for manual-review labels and guidance, count units, and one-time duplicate-result notes, plus a six-rule local guidance smoke check and the missing `link-name` 4.1.2 mapping.
+Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, T1 manual-review wording and guidance, clarified count units and one-time duplicate-result notes, the six-rule local guidance smoke check, the missing `link-name` 4.1.2 mapping, and the local evaluation pages/procedure/results template.
 
 Still pending:
 
-- Build a repeatable evaluation set to measure detection, retrieval agreement, and repair outcomes. The six local requests used synthetic inputs and are only a smoke check; Groq mode remains untested.
+- Scan the two new evaluation fixtures in Brave and record the actual violation/manual-review rule IDs. The candidate list is not yet validated, and no repair outcomes have been measured.
+- Measure detection, retrieval agreement, and repair outcomes across repeated runs without presenting them as a WCAG conformance verdict. The six local API requests used synthetic inputs and are only a smoke check; Groq mode remains untested.
 - Review the popup follow-up in Brave: the user's earlier penny-juice.com check covered the original T1 wording, not the latest one-time note and manual-review guidance controls.
-- Create a small repeatable set of accessible and intentionally flawed demo pages.
-- Record what the scanner catches and whether fixes improve those sample pages, while avoiding claims of automated WCAG conformance.
 - Manually review popup keyboard use, screen-reader announcements, and layout with assistive technology.
 - Refine report naming and presentation using evaluation feedback.
 
@@ -260,7 +270,7 @@ Still pending:
 - Curated mappings cover common axe rules. Other rules rely on local retrieval and may need manual criterion review.
 - AI explanations and suggested HTML use one selected node's limited context. A suggested correction needs a developer's review and may require more page context.
 - Frame, shadow DOM, dynamically changing pages, and browser-protected pages can limit scanning or highlighting.
-- No demo/repair evaluation set or measured coverage results are currently documented.
+- Two local evaluation fixtures and a scan procedure exist, but no browser scan results or repair outcomes have been recorded.
 - The browser popup and extension have not completed a manual keyboard or screen-reader evaluation in this project record.
 - The repo contains no automated test suite. The user reports testing the initial T1 labels on `https://penny-juice.com` successfully. The current popup JavaScript passed `node --check`, and the user confirmed one **Get WCAG guidance** request worked after restarting FastAPI. The selected rule and card type were not recorded, so the one-time cross-category note and manual-review guidance presentation still need a specific browser check. The report PDF has been rendered and visually inspected.
 - The attached review reports that four screenshots show a `claude.ai` scan with 3 violation rules, 4 affected violation elements, and 4 manual-review rules. This is a single observed page, not a repeatable evaluation, and this session did not reproduce it.

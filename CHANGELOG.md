@@ -4,6 +4,7 @@ Notable project changes are recorded here. The project is pre-release and may ch
 
 ## Unreleased
 
+- Added local evaluation fixtures, a repeatable scan procedure, and a results template. Browser scan outcomes have not yet been recorded.
 - Added the missing 4.1.2 mapping for `link-name` after checking axe-core's rule tags; recorded local guidance results for six synthetic rule requests.
 - Clarified manual-review labels and summary count units, showed cross-category notes once, and added guidance for possible issues.
 - Added a detailed implementation and roadmap handoff in Markdown and PDF.

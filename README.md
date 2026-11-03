@@ -127,7 +127,7 @@ The extension uses `activeTab` and `scripting` for on-demand page access, `stora
 
 ## Where the project stands
 
-I'm following the six-week plan in [docs/ROADMAP.md](docs/ROADMAP.md). The scanner, local explanation API, and WCAG reference search are in the project now. I also added a JSON report export. I still need to make demo pages and keep notes on how useful the findings are when fixing a page.
+I'm following the six-week plan in [docs/ROADMAP.md](docs/ROADMAP.md). The scanner, local explanation API, and WCAG reference search are in the project now. I also added a JSON report export and two local evaluation pages. I still need to scan those pages in Brave, record what A11yLens finds, and measure the effect of fixing the intentional issues. See [the evaluation instructions](evaluation/README.md).
 
 The WCAG reference set uses short summaries from W3C pages, not the full standard. I smoke-checked local guidance on six synthetic axe-rule requests; that is not a full accuracy evaluation, and I have not tested Groq mode. The source code is public here on GitHub, but the FastAPI server still runs on my computer. I haven't hosted the API or published the extension in the Chrome Web Store.
 
