@@ -110,6 +110,8 @@ backend/.venv/Scripts/python.exe -m uvicorn main:app --app-dir backend --reload 
 
 The API is local-only by default. Its health page is `http://127.0.0.1:8000/health` and interactive API docs are at `http://127.0.0.1:8000/docs`.
 
+For a safe local-only setup, optional Groq configuration, and API error troubleshooting, see [the backend setup guide](docs/LOCAL_BACKEND_SETUP.md). Groq mode has not yet been exercised in this project.
+
 ### 3. Load the extension in Chrome
 
 1. Open `chrome://extensions` and enable **Developer mode**.

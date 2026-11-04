@@ -180,6 +180,7 @@ The pages are served from `127.0.0.1:8001` using Python's built-in HTTP server, 
 | `docs/ARCHITECTURE.md` | Beginner-oriented request flow, data shape, retrieval, export, and limits |
 | `docs/ROADMAP.md` | Maintained six-week milestone checklist and release boundary |
 | `docs/PROJECT_LOG.md` | Decisions, current implementation notes, local commands, and next work |
+| `docs/LOCAL_BACKEND_SETUP.md` | Safe local key setup, local-only mode, and API/provider troubleshooting |
 | `docs/PRIVACY.md` | Draft disclosure aligned to current local data flows |
 | `docs/A11YLENS_PROJECT_PROGRESS_REPORT.md` | Detailed implementation, history, privacy, and roadmap handoff source |
 | `output/pdf/A11yLens_Project_Progress_Report.pdf` | Shareable PDF version of this report |
@@ -231,13 +232,13 @@ Manifest V3, popup, background service worker, active-tab messaging, per-session
 
 axe-core is run on demand for WCAG 2.0, 2.1, and 2.2 A/AA tags. The UI separates violations and incomplete/manual-review results, shows counts and affected element samples, and supports highlighting.
 
-### Week 3 - Explanation API: implemented locally; follow-up work remains
+### Week 3 - Explanation API: implemented locally; setup guide added
 
-The FastAPI API, request limits, no-key local WCAG guidance, and optional Groq explanation path are implemented. Still pending: a safe local API key walkthrough and clearer provider error/retry guidance in the user documentation.
+The FastAPI API, request limits, no-key local WCAG guidance, and optional Groq explanation path are implemented. `docs/LOCAL_BACKEND_SETUP.md` documents safe local key handling, local-only operation, restart steps, and code-matched provider errors. Groq mode has not been tested with a configured key.
 
 ### Week 4 - WCAG retrieval: implemented; one setup decision remains
 
-The local 55-record W3C summary corpus, common axe mappings, TF-IDF fallback, and optional local Sentence Transformers plus FAISS path are implemented. Still pending: deciding whether the heavier optional model packages should ever become part of the default developer setup.
+The local 55-record W3C summary corpus, common axe mappings, TF-IDF fallback, and optional local Sentence Transformers plus FAISS path are implemented. The heavier model packages remain optional and have a separate setup command.
 
 ### Week 5 - Evaluation and interface polish: in progress
 

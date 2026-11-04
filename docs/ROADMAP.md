@@ -19,7 +19,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [x] Add a FastAPI endpoint with input limits and strict request fields.
 - [x] Provide local WCAG guidance without a model key.
 - [x] Add optional Groq explanations and code suggestions, with API keys kept in the backend environment.
-- [ ] Add provider error/retry guidance and document a safe local-key setup walkthrough.
+- [x] Add provider error/retry guidance and document a safe local-key setup walkthrough. Groq behavior is documented from code but has not been tested with a provider key.
 
 ## Week 4 — WCAG retrieval: implemented; semantic mode optional
 
@@ -27,7 +27,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [x] Map common axe rules directly to relevant criteria.
 - [x] Add TF-IDF retrieval as the lightweight default fallback.
 - [x] Add an optional local Sentence Transformers + FAISS retrieval path.
-- [ ] Decide whether to make the large optional embedding dependencies part of the default developer setup.
+- [x] Keep the large embedding dependencies optional and document their separate installation path.
 
 ## Week 5 — Evaluation and interface polish: in progress
 

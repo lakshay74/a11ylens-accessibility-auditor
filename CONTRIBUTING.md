@@ -38,6 +38,7 @@ backend/.venv/Scripts/python.exe -m uvicorn main:app --app-dir backend --reload 
 ```
 
 Keep real API keys in `backend/.env`. Never commit that file, keys, private page HTML, or unredacted audit exports.
+See [the local backend setup guide](docs/LOCAL_BACKEND_SETUP.md) for key handling, local-only mode, and 502/504 troubleshooting.
 
 ## Change and review checklist
 
