@@ -45,3 +45,5 @@ These are candidate expectations based on the authored markup and axe rule purpo
 6. Keep the pages and results local. Use a clean browser profile for any screenshots.
 
 The candidate list is a fixture checklist, not independent ground truth. Axe WCAG tags help map a rule to criteria, but they do not prove that a specific page-level result is correct. A human should verify the authored defect and review false positives or missed findings before summarizing the evaluation.
+
+For a separate keyboard and screen-reader review, use [the manual assistive-technology checklist](ASSISTIVE_TECH_TEMPLATE.md). It is a blank procedure and does not represent completed testing.

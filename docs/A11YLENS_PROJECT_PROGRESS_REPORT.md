@@ -181,6 +181,7 @@ The pages are served from `127.0.0.1:8001` using Python's built-in HTTP server, 
 | `docs/ROADMAP.md` | Maintained six-week milestone checklist and release boundary |
 | `docs/PROJECT_LOG.md` | Decisions, current implementation notes, local commands, and next work |
 | `docs/LOCAL_BACKEND_SETUP.md` | Safe local key setup, local-only mode, and API/provider troubleshooting |
+| `evaluation/ASSISTIVE_TECH_TEMPLATE.md` | Repeatable keyboard and screen-reader checklist with a blank observation record |
 | `docs/PRIVACY.md` | Draft disclosure aligned to current local data flows |
 | `docs/A11YLENS_PROJECT_PROGRESS_REPORT.md` | Detailed implementation, history, privacy, and roadmap handoff source |
 | `output/pdf/A11yLens_Project_Progress_Report.pdf` | Shareable PDF version of this report |
@@ -242,14 +243,14 @@ The local 55-record W3C summary corpus, common axe mappings, TF-IDF fallback, an
 
 ### Week 5 - Evaluation and interface polish: in progress
 
-Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, T1 manual-review wording and guidance, clarified count units and one-time duplicate-result notes, the six-rule local guidance smoke check, the missing `link-name` 4.1.2 mapping, and the local evaluation pages/procedure/results template.
+Completed: JSON report export, safe Deque axe-help links, GitHub maintenance docs, issue templates, API-offline/local-scan explanation, T1 manual-review wording and guidance, clarified count units and one-time duplicate-result notes, the six-rule local guidance smoke check, the missing `link-name` 4.1.2 mapping, the local evaluation pages/procedure/results template, and a repeatable keyboard and screen-reader review checklist.
 
 Still pending:
 
 - Scan the two new evaluation fixtures in Brave and record the actual violation/manual-review rule IDs. The candidate list is not yet validated, and no repair outcomes have been measured.
 - Measure detection, retrieval agreement, and repair outcomes across repeated runs without presenting them as a WCAG conformance verdict. The six local API requests used synthetic inputs and are only a smoke check; Groq mode remains untested.
 - Review the popup follow-up in Brave: the user's earlier penny-juice.com check covered the original T1 wording, not the latest one-time note and manual-review guidance controls.
-- Manually review popup keyboard use, screen-reader announcements, and layout with assistive technology.
+- Run the documented keyboard and screen-reader checklist; no manual assistive-technology results have been recorded yet.
 - Refine report naming and presentation using evaluation feedback.
 
 ### Week 6 - Release preparation: started

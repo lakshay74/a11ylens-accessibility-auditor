@@ -2,7 +2,7 @@
 
 This file keeps the working state and decisions in the repository so project context survives beyond a chat session.
 
-**Last updated:** 2026-11-03
+**Last updated:** 2026-11-04
 **Project name:** A11yLens
 **Current stage:** Week 5 - evaluation and interface polish
 
@@ -31,6 +31,7 @@ This file keeps the working state and decisions in the repository so project con
 - Added `docs/LOCAL_BACKEND_SETUP.md` with safe local key handling, local-only behavior, restart steps, and code-matched 502/504 troubleshooting. Groq mode remains untested because no key has been configured.
 - The bundled axe-core 4.14.0 rule table tags `link-name` with both `wcag244` and `wcag412`; `backend/rag.py` now directly maps it to 2.4.4 and 4.1.2. Axe criterion tags are currently omitted from A11yLens scan output by `extension/content.js`'s `serializeRule()`.
 - Added two local evaluation fixtures, a scan procedure, and a blank results template under `evaluation/`. The intentional issue list is a candidate checklist, not confirmed scan output; no fixture scans or repair outcomes have been recorded yet.
+- Inspected the popup markup and styles for the planned manual review. The code includes heading structure, status and alert regions, standard buttons/links/details controls, and visible keyboard focus styling. Added `evaluation/ASSISTIVE_TECH_TEMPLATE.md`; actual keyboard and screen-reader behavior remains untested until run in Brave.
 - Backend binds to `127.0.0.1` in the documented development command.
 
 ## Decisions to preserve

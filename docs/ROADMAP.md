@@ -37,6 +37,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [x] Smoke-check local guidance for six axe rules and confirm one popup guidance request after starting the API. Record API results against axe 4.14.0's criterion tags. This is not a formal accuracy evaluation; Groq mode was not tested.
 - [x] Add GitHub maintenance docs, a changelog, and issue templates.
 - [x] Create a small, clearly labeled set of accessible and intentionally flawed local demo pages with a repeatable scan procedure and results template.
+- [x] Document a repeatable keyboard and screen-reader review procedure in `evaluation/ASSISTIVE_TECH_TEMPLATE.md`; the manual checks themselves remain pending.
 - [ ] Record scan coverage, retrieval agreement, and repair outcomes on a repeatable evaluation set without claiming automated conformance. Axe tags may be a reference baseline, not independent ground truth.
 - [ ] Review keyboard navigation, screen-reader announcements, and popup layout using manual assistive-technology checks.
 - [ ] Refine report naming and presentation based on evaluation feedback.
