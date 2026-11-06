@@ -1,11 +1,11 @@
 # A11yLens Project Progress and Technical Handoff
 
-**Snapshot date:** 3 November 2026<br>
-**Latest GitHub baseline:** `e9a6e50` on `main`<br>
-**Latest T1 commit:** `d4d241f` - Clarify manual review guidance and results (local only)<br>
-**T2 implementation commit:** `236f35d` - Verify local guidance mappings (local only)<br>
+**Snapshot date:** 6 November 2026<br>
+**GitHub sync check:** On 6 November, `main` and `origin/main` matched at `41dc477` before this handoff update.<br>
+**T1 commit:** `d4d241f` - Clarify manual review guidance and results (pushed)<br>
+**T2 implementation commit:** `236f35d` - Verify local guidance mappings (pushed)<br>
 **T2 result:** `link-name` maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
-**T3 evaluation setup:** Two local fixture pages and a scan protocol are now in `evaluation/`; browser results remain pending.<br>
+**T3 evaluation setup:** Two local fixture pages, a scan protocol, backend setup guide, and manual assistive-technology checklist are pushed; browser results remain pending.<br>
 **Project repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor<br>
 **Project stage:** Week 5 evaluation and interface polish; Week 6 release preparation started
 
@@ -32,10 +32,10 @@ The name is **A11yLens**: `a11y` is a common numeronym for accessibility, and `l
 | Extension version | 0.1.0 |
 | Git branch | `main` |
 | Public source repository | `lakshay74/a11ylens-accessibility-auditor` |
-| Latest commit on GitHub at the time of this report | `e9a6e50` - Link findings to axe rule guidance |
-| T1 local commit after that baseline | `d4d241f` contains the T1 result-label follow-ups and handoff docs; it has not been pushed |
-| T2 local commit | `236f35d` adds the `link-name` criterion mapping and records the six-request local smoke check; it has not been pushed |
-| T3 evaluation setup | Two local fixtures, scan instructions, and a blank results template; no browser results yet, not pushed |
+| Implementation checkpoint at the GitHub sync check | `41dc477` - Review source permissions and privacy flows |
+| T1 commit | `d4d241f` contains the T1 result-label follow-ups and handoff docs; pushed |
+| T2 commit | `236f35d` adds the `link-name` criterion mapping and records the six-request local smoke check; pushed |
+| T3 follow-up commits | `5eecc51`, `17ed97d`, and `01f2dbe` add evaluation fixtures and procedures, backend setup docs, and the assistive-technology checklist; pushed |
 | Backend | Python FastAPI, local-development service |
 | AI provider | Optional Groq API; off unless `GROQ_API_KEY` is configured |
 | WCAG reference set | 55 WCAG 2.2 A/AA summaries linked to W3C WAI Understanding pages |
@@ -202,7 +202,7 @@ The extension build script copies axe-core 4.14.0's MPL license and third-party 
 
 ## 6. GitHub and project history
 
-The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. The local `main` branch tracks `origin/main`. Selected implementation commits through T2; the T3 evaluation setup is described in section 3.8:
+The public repository is `https://github.com/lakshay74/a11ylens-accessibility-auditor`. It was created at the user's request and confirmation. At the 2026-11-06 sync check, `main` and `origin/main` both pointed to `41dc477`; eight follow-up commits after the `e9a6e50` baseline had been pushed. This handoff update records that checkpoint in a subsequent documentation commit. Evaluation setup is described in section 3.8:
 
 | Commit | Date | Change |
 | --- | --- | --- |
@@ -214,8 +214,14 @@ The public repository is `https://github.com/lakshay74/a11ylens-accessibility-au
 | `e9a6e50` | 2026-10-28 | Link findings to axe rule guidance |
 | `d4d241f` | 2026-10-30 | Clarify manual review guidance and results |
 | `236f35d` | 2026-10-30 | Verify local guidance mappings |
+| `2604777` | 2026-10-30 | Refresh T2 project handoff |
+| `e9986f4` | 2026-10-30 | Record successful popup guidance check |
+| `5eecc51` | 2026-11-03 | Add local accessibility evaluation fixtures |
+| `17ed97d` | 2026-11-04 | Document safe local backend setup |
+| `01f2dbe` | 2026-11-06 | Document manual accessibility review procedure |
+| `41dc477` | 2026-11-06 | Review source permissions and privacy flows |
 
-The Git status was clean at the `e9a6e50` baseline before the handoff report and T1 wording updates. T1 is recorded in local commit `d4d241f`, and T2 is recorded in local commit `236f35d`; neither commit has been pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
+The sync check found no remote divergence before this handoff update. Eight follow-up commits after the previous GitHub baseline had been pushed. `backend/.env` and API keys are excluded from commits. The public source repository does not mean that a license has been chosen, that the backend is public, or that the extension is published in a browser store.
 
 ### Work completed during the project so far
 
