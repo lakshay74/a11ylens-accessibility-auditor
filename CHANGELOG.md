@@ -6,6 +6,7 @@ Notable project changes are recorded here. The project is pre-release and may ch
 
 - Added a safe local backend/Groq setup guide with troubleshooting for provider errors and timeouts.
 - Added a repeatable keyboard and screen-reader review checklist; manual results remain pending.
+- Recorded a source-level permissions, data-flow, API-key, and axe notice review; final release review remains open.
 - Added local evaluation fixtures, a repeatable scan procedure, and a results template. Browser scan outcomes have not yet been recorded.
 - Added the missing 4.1.2 mapping for `link-name` after checking axe-core's rule tags; recorded local guidance results for six synthetic rule requests.
 - Clarified manual-review labels and summary count units, showed cross-category notes once, and added guidance for possible issues.

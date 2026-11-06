@@ -133,6 +133,12 @@ After the six API requests, the backend had been stopped. The user later confirm
 
 The pages are served from `127.0.0.1:8001` using Python's built-in HTTP server, so the extension can scan them as ordinary local web pages. A repeatable procedure and blank observation/repair table are included. **No browser scan has been run on these fixtures yet.** The candidate rule list is not an axe result or an accuracy claim; observed violations and manual-review items must be recorded separately.
 
+### 3.9 Source-level release review
+
+On 2026-11-06, the current source was reviewed against the manifest and privacy notes. The extension requests `activeTab`, `scripting`, and `storage`, plus one host permission for `http://127.0.0.1:8000/*`. It injects its local scanner only after the user starts a scan, keeps scan restoration data in `chrome.storage.session`, and sends one selected finding to the local API only after the user asks for guidance. `backend/.env` is ignored by Git and the key is read by FastAPI, not by the extension. No hosted API or backend authentication is implemented, so this review does not authorize or establish a safe hosted deployment.
+
+The extension build script copies axe-core 4.14.0's MPL license and third-party notices into `extension/vendor/`; both notice files are tracked in the repository. This confirms the current axe notice path, not a full legal review of every dependency or a chosen A11yLens source license. A packaged-store review remains pending because the distribution and hosting model are undecided.
+
 ## 4. Privacy, security, and third-party handling
 
 ### 4.1 What stays local and what can leave the computer

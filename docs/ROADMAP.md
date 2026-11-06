@@ -47,7 +47,8 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [ ] Choose a source license and confirm third-party notices.
 - [x] Add branded extension icon assets and a Windows regeneration script.
 - [ ] Capture final extension screenshots in a clean browser profile on a demo page, with no personal data visible.
-- [ ] Review permissions, privacy disclosures, backend deployment risks, and API-key handling.
+- [x] Review current source permissions, local data flow, API-key handling, and axe-core notice generation against the repository code.
+- [ ] Review the packaged release, store privacy declarations, and deployment risks after choosing a distribution and hosting model.
 - [x] Draft a code-matched local-development privacy disclosure; publication review remains.
 - [ ] Decide whether to keep the backend local-only or design a secured hosted service.
 - [ ] Prepare Chrome Web Store materials if distribution is desired.

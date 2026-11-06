@@ -22,6 +22,10 @@ The optional Groq key belongs in `backend/.env`, which is excluded from Git. The
 
 The WCAG summary corpus is checked into the project and linked to W3C WAI sources. It is not fetched from W3C during an ordinary scan.
 
+## Current extension permissions
+
+The Manifest V3 extension requests `activeTab`, `scripting`, and `storage`. It uses the active-tab grant to inspect the current tab after the user starts a scan, injects its locally built axe-core and content scripts for that scan, and uses session storage to restore the result in the browser session. Its only host permission is `http://127.0.0.1:8000/*` for the local explanation API. This source review found no broad all-sites host permission. Confirm permissions again against any packaged release build.
+
 ## Before public release
 
 The local-backend design, data flows, third-party provider behavior, retention details, and browser-store declarations must be reviewed for the exact release build. If A11yLens is changed to use a hosted API, update this disclosure and explain authentication, logging, retention, and provider processing before deployment.
