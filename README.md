@@ -36,7 +36,7 @@ flowchart LR
 
 For a beginner-friendly walkthrough of the files and request flow, see [the architecture guide](docs/ARCHITECTURE.md).
 See [the roadmap](docs/ROADMAP.md) for milestones and [the project log](docs/PROJECT_LOG.md) for current decisions and handoff notes.
-The [detailed project handoff](docs/A11YLENS_PROJECT_PROGRESS_REPORT.md) records the implementation and remaining work; a [shareable PDF copy](output/pdf/A11yLens_Project_Progress_Report.pdf) is included for project handoffs.
+For the latest status and a Claude-ready handoff, see the [10 November project report](docs/A11YLENS_HANDOFF_2026-11-10.md) and its [complete bundled PDF](output/pdf/A11yLens_Full_Project_Handoff_2026-11-10.pdf). The [earlier technical snapshot](docs/A11YLENS_PROJECT_PROGRESS_REPORT.md) and its [PDF copy](output/pdf/A11yLens_Project_Progress_Report.pdf) remain available as historical detail.
 
 ## Project layout
 
