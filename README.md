@@ -1,6 +1,6 @@
 # A11yLens
 
-**A11yLens** is a Chrome extension that finds common accessibility issues on the page you choose to scan, points to the affected elements, and explains a selected issue using WCAG guidance. The optional Python backend can use Groq to produce a plain-language explanation and a suggested HTML correction.
+**A11yLens** is a Chrome extension and mobile-first web auditor for finding common accessibility issues on a page, understanding who they affect, and reviewing practical fixes. Its Python backend uses local WCAG retrieval and can use Groq for structured plain-language explanations.
 
 The name uses **a11y**, a common numeronym for accessibility, and **lens** for inspecting a page.
 
@@ -53,9 +53,18 @@ backend/
   data/wcag.json            WCAG 2.2 A/AA summary corpus with W3C source links
   main.py                   FastAPI routes and optional Groq call
   rag.py                    Rule mapping, FAISS embeddings, and TF-IDF fallback
+  scanner.py                Playwright Chromium scan with axe-core and request limits
+  scan_logic.py             Public URL validation and A11yLens score formula
+  report_store.py           MongoDB storage for report share links
+  tests/                    URL, score, scan endpoint, and storage tests
   requirements-rag.txt      Optional local embedding and FAISS dependencies
   scripts/build_wcag_corpus.py  Refreshes the W3C WCAG 2.2 A/AA summaries
   .env.example              Backend configuration template
+web/
+  server.js                 Node server using runtime API_BASE_URL
+  index.html / styles.css   Mobile-first, keyboard-accessible report interface
+  app.js                    Scan, report, score, share, and copy-fix behavior
+  package.json              Node start script for Embarko deployment
 ```
 
 ## Run locally
@@ -80,6 +89,7 @@ From the project root, create and activate a virtual environment, then install t
 py -m venv backend/.venv
 backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.txt
 Copy-Item backend/.env.example backend/.env
+backend/.venv/Scripts/python.exe -m playwright install chromium
 ```
 
 Edit `backend/.env` and set `GROQ_API_KEY` if you want AI-generated explanations. The default model is `openai/gpt-oss-20b`; set `GROQ_MODEL` to another model available to your Groq account if needed. With no key, the API still returns local WCAG guidance.
@@ -121,6 +131,22 @@ For a safe local-only setup, optional Groq configuration, and API error troubles
 
 The extension cannot scan Chrome internal pages, the Chrome Web Store, or some protected browser pages. Reload a page after reloading the extension if Chrome reports that the content script is unavailable.
 
+## A11yLens Web
+
+The web app accepts one public HTTP/HTTPS URL and scans it with headless Chromium, Playwright, and the same local axe-core version used by the extension. The API checks URL DNS results and redirects, limits browser time and downloaded resources, and applies a per-client rate limit. Groq explanations use the existing WCAG retrieval and fall back to local guidance when Groq is unavailable. Reports are saved in MongoDB and served through share links when `MONGODB_URI` is configured.
+
+The **A11yLens score** is a project estimate, not an official WCAG rating. For each axe rule, subtract its impact weight multiplied by up to five affected elements: critical 12, serious 8, moderate 4, minor 1. The final score is `max(0, 100 - total penalties)`. Unknown impact uses the minor weight. Impact counts use axe-core's affected-element totals; the same element can count under multiple rules.
+
+The app itself is mobile-first and keyboard accessible. Its scan findings and AI snippets are displayed as text. Public share links can be opened by anyone who has the link; saved report URLs omit query strings and fragments.
+
+For local use, start FastAPI with the command above, set `FRONTEND_ORIGIN=http://localhost:4173` in `backend/.env`, then start the Node interface from `web/` with `API_BASE_URL=http://127.0.0.1:8000`. The scan form appears at `http://localhost:4173`.
+
+For local setup, MongoDB Atlas configuration, CORS settings, and the Embarko frontend/API hosting split, see [the A11yLens Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md). Run the focused backend tests from the project root with:
+
+```powershell
+backend/.venv/Scripts/python.exe -m unittest discover -s backend/tests -v
+```
+
 ## Data and privacy
 
 Scanning runs in the page after you invoke it. It does not send a whole page to the backend. When you choose **Get WCAG guidance**, the extension sends the selected axe rule, description, impact, target selector, and a short HTML snippet to the local backend. If `GROQ_API_KEY` is configured, that selected finding is then sent from the backend to Groq. Do not send a finding from a page containing information you do not want to share with the configured provider.
@@ -129,9 +155,9 @@ The extension uses `activeTab` and `scripting` for on-demand page access, `stora
 
 ## Where the project stands
 
-The scanner, local explanation API, and WCAG reference search are in the project now. I also added a JSON report export and two local evaluation pages. I still need to scan those pages in Brave, record what A11yLens finds, and measure the effect of fixing the intentional issues. See [the evaluation instructions](evaluation/README.md).
+The Chrome extension and the first A11yLens Web implementation are in the project. The web API can scan a public page, calculate a documented score, attach local or Groq explanations, and save a shareable report when MongoDB is configured. The project still needs a real Chromium scan, a connected MongoDB service, a deployed API/frontend, and browser-based mobile/accessibility review. The extension's two local evaluation pages still need repeatable scans and recorded repair outcomes. See [the evaluation instructions](evaluation/README.md) and [the Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md).
 
-The WCAG reference set uses short summaries from W3C pages, not the full standard. I smoke-checked local guidance on six synthetic axe-rule requests; that is not a full accuracy evaluation, and I have not tested Groq mode. The source code is public here on GitHub, but the FastAPI server still runs on my computer. I haven't hosted the API or published the extension in the Chrome Web Store.
+The WCAG reference set uses short summaries from W3C pages, not the full standard. The web tests mock browser scans and MongoDB; they do not measure real-page accuracy or confirm a live deployment. Groq mode and Chromium navigation still need live checks. The source code is public on GitHub; the API is not hosted and the extension is not published in the Chrome Web Store.
 
 ## License
 

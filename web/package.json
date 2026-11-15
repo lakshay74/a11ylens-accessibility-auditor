@@ -1,0 +1,9 @@
+{
+  "name": "a11ylens-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mobile-first A11yLens accessibility report interface.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

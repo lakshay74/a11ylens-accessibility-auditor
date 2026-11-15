@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102019" />
+    <meta name="description" content="Check a public web page for accessibility barriers and get plain-language guidance." />
+    <title>A11yLens — See the barriers. Make a better web.</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/runtime-config.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="A11yLens home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" focusable="false">
+            <circle cx="17" cy="17" r="10.5"></circle>
+            <path d="m25 25 8 8M10 17h14M17 10v14"></path>
+          </svg>
+        </span>
+        <span class="brand-name">A11yLens<span class="brand-product">WEB AUDITOR</span></span>
+      </a>
+      <a class="header-link" href="#how-score">How the score works <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> ACCESS FOR EVERYONE STARTS HERE</p>
+          <h1 id="hero-title">See the barriers.<br /><span>Make a better web.</span></h1>
+          <p class="hero-description">A clear, practical accessibility check for one page at a time. Paste a public link to see what axe-core finds and what you can improve.</p>
+          <div class="hero-meta" aria-label="Scan details">
+            <span><span aria-hidden="true">◎</span> One public page</span>
+            <span><span aria-hidden="true">◈</span> WCAG A/AA checks</span>
+            <span><span aria-hidden="true">↗</span> Shareable report</span>
+          </div>
+        </div>
+
+        <div class="scan-panel">
+          <div class="panel-topline"><span>START A CHECK</span><span class="online-status"><i aria-hidden="true"></i> READY WHEN YOU ARE</span></div>
+          <h2>Which page should we look at?</h2>
+          <p class="panel-copy">Use a public website address. We scan one page and don’t crawl the rest of the site.</p>
+          <form id="scan-form" novalidate>
+            <label for="page-url">Page URL</label>
+            <div class="url-entry" id="url-entry">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg>
+              <input id="page-url" name="url" type="url" inputmode="url" autocomplete="url" placeholder="https://yourwebsite.com" aria-describedby="url-hint error-message" required maxlength="2048" />
+              <button class="scan-button" id="scan-button" type="submit">Scan page <span aria-hidden="true">→</span></button>
+            </div>
+            <p id="url-hint" class="field-hint">Public HTTP or HTTPS pages only.</p>
+            <p id="error-message" class="error-message" role="alert" hidden></p>
+            <div id="loading-state" class="loading-state" role="status" aria-live="polite" hidden>
+              <span class="loading-spinner" aria-hidden="true"></span>
+              <span id="loading-message">Checking the address…</span>
+            </div>
+          </form>
+
+          <div class="examples" aria-label="Try an example website">
+            <span class="examples-label">TRY AN EXAMPLE</span>
+            <div class="example-buttons">
+              <button type="button" class="example-button" data-url="https://www.w3.org/">W3C.org <span aria-hidden="true">↗</span></button>
+              <button type="button" class="example-button" data-url="https://www.gov.uk/">GOV.UK <span aria-hidden="true">↗</span></button>
+              <button type="button" class="example-button" data-url="https://en.wikipedia.org/wiki/Main_Page">Wikipedia <span aria-hidden="true">↗</span></button>
+            </div>
+          </div>
+          <p class="privacy-note"><span aria-hidden="true">◌</span> Reports hide URL query details. Scan pages you’re allowed to review.</p>
+        </div>
+      </section>
+
+      <section class="value-strip" aria-label="What is included in a report">
+        <div class="value-item"><span class="value-number">01</span><div><strong>Find what gets in the way</strong><p>Rule-by-rule findings, grouped by impact.</p></div></div>
+        <div class="value-item"><span class="value-number">02</span><div><strong>Understand who it affects</strong><p>Plain language with WCAG reference context.</p></div></div>
+        <div class="value-item"><span class="value-number">03</span><div><strong>Know where to start</strong><p>Practical suggestions and code examples to review.</p></div></div>
+      </section>
+
+      <section id="results" class="results" aria-labelledby="report-heading" hidden>
+        <div class="report-header">
+          <div class="report-heading-wrap">
+            <p class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> ACCESSIBILITY FIELD REPORT</p>
+            <h2 id="report-heading" tabindex="-1">Your page report</h2>
+            <a id="report-url" class="report-url" href="#" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <div class="report-actions">
+            <button id="copy-share" type="button" class="button-secondary" hidden>Copy report link</button>
+            <button id="scan-another" type="button" class="button-quiet">Scan another page <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+
+        <p id="save-notice" class="save-notice" role="status" hidden></p>
+
+        <div class="summary-grid">
+          <section class="score-card" aria-labelledby="score-title">
+            <div class="score-ring" id="score-ring" role="img" aria-label="A11yLens score">
+              <svg viewBox="0 0 112 112" aria-hidden="true" focusable="false">
+                <circle class="ring-track" cx="56" cy="56" r="46"></circle>
+                <circle class="ring-progress" id="ring-progress" cx="56" cy="56" r="46"></circle>
+              </svg>
+              <div class="ring-value"><strong id="score-value">—</strong><span> / 100</span></div>
+            </div>
+            <div class="score-copy">
+              <p class="eyebrow">PROJECT ESTIMATE</p>
+              <h3 id="score-title">A11yLens score</h3>
+              <p id="score-note">This is an A11yLens estimate, not an official WCAG rating.</p>
+              <p id="score-method" class="score-method"></p>
+            </div>
+          </section>
+
+          <section class="impact-card" aria-labelledby="impact-title">
+            <div class="impact-heading"><div><p class="eyebrow">WHAT AXE FOUND</p><h3 id="impact-title">Impact by level</h3></div><span id="rule-total" class="rule-total"></span></div>
+            <div id="impact-counts" class="impact-counts"></div>
+            <p class="impact-footnote">Counts show affected elements. The same element may appear under more than one rule.</p>
+          </section>
+        </div>
+
+        <div class="violations-heading">
+          <div><p class="eyebrow">THE DETAILS</p><h3>Findings to review</h3></div>
+          <span id="finding-count" class="finding-count"></span>
+        </div>
+        <p id="ai-note" class="ai-note"></p>
+        <div id="violations-list" class="violations-list"></div>
+        <div id="no-violations" class="no-violations" hidden>
+          <span class="no-violations-mark" aria-hidden="true">✓</span>
+          <div><h3>No automated violations found</h3><p>That’s a helpful result. Automated checks cannot identify every accessibility barrier, so manual review still matters.</p></div>
+        </div>
+        <p class="report-caveat">An automated scan is a useful starting point, not proof that a page conforms to WCAG.</p>
+      </section>
+
+      <section id="how-score" class="score-explainer" aria-labelledby="how-score-title">
+        <div class="explainer-index" aria-hidden="true">A11Y<br />LENS</div>
+        <div class="explainer-content">
+          <p class="eyebrow">A TRANSPARENT MEASURE</p>
+          <h2 id="how-score-title">A direction, not a verdict.</h2>
+          <p>The A11yLens score starts at 100 and subtracts a penalty for each axe rule: critical 12, serious 8, moderate 4, minor 1, multiplied by up to five affected elements for that rule. The score stops at 0. Unknown impact uses the minor weight.</p>
+          <p>Counts use axe-core’s affected-element total. One element can be affected by multiple rules. This estimate helps prioritize work; it is not a WCAG conformance rating.</p>
+        </div>
+        <div class="formula-card" aria-label="Score calculation">
+          <span>THE CALCULATION</span>
+          <code>max(0, 100 − Σ impact weight × min(elements, 5))</code>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="footer-brand" href="/">A11yLens <span>WEB AUDITOR</span></a>
+      <p>Built to make accessibility easier to act on.</p>
+      <span>One page · One scan · A better next step</span>
+    </footer>
+  </body>
+</html>
