@@ -2,9 +2,9 @@
 
 This file keeps the working state and decisions in the repository so project context survives beyond a chat session.
 
-**Last updated:** 2026-11-06
+**Last updated:** 2026-11-16
 **Project name:** A11yLens
-**Current stage:** Week 5 - evaluation and interface polish
+**Current stage:** Week 6 - release preparation and A11yLens Web deployment setup
 
 **Public repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor
 **Tracked branch:** `main` (remote: `origin`)
@@ -12,6 +12,17 @@ This file keeps the working state and decisions in the repository so project con
 **T1 commit:** `d4d241f` - Clarify manual review guidance and results (pushed)
 **T2 commit:** `236f35d` - Verify local guidance mappings (pushed)
 **T3 evaluation setup:** Fixtures, scan procedure, backend setup, and assistive-technology checklist are pushed; browser results remain pending.
+
+## A11yLens Web status (2026-11-16)
+
+- The Web frontend and scan API run locally at `http://localhost:4173` and `http://127.0.0.1:8000`.
+- The local backend virtual environment was missing Playwright. Playwright is installed there now. On Windows, if the managed browser is absent, the scanner can use installed Brave, Chrome, or Edge; the deployment Dockerfile installs managed Chromium for Linux hosts.
+- A real Playwright scan of `https://www.w3.org/` returned a report through the API. This verifies one browser launch and request path, not scan accuracy or WCAG conformance.
+- At 360 px and 390 px, the web interface had no horizontal overflow and returned zero automated axe WCAG A/AA violations after removing an overriding header-link label. A short keyboard pass showed visible focus indicators; screen-reader review remains pending.
+- The backend unittest suite passed all 29 tests after the Playwright fallback change. Those mocked tests cover URL validation, scoring, scan endpoints, redirects, enrichment fallback, and report storage; they do not replace live-host or MongoDB checks.
+- `/health` currently reports `mongo_configured: false` and `groq_configured: false`. The scan response is not saved, so share links are unavailable; AI explanations are off.
+- No public API or frontend deployment has been created. The deployment guide documents MongoDB Atlas, the API container host, and the Embarko frontend setup. External account creation, host selection, and environment-variable configuration remain to be done.
+- The automated scan and brief keyboard pass are not a screen-reader review. Broader real-page evaluation, Groq behavior, MongoDB persistence, and public deployment remain unverified.
 
 ## Current implementation
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin, urlsplit
@@ -24,6 +25,36 @@ MAX_TOTAL_BYTES = 12 * 1024 * 1024
 MAX_NODES_PER_RULE = 25
 BLOCKED_RESOURCE_TYPES = {"image", "media", "font"}
 AXE_PATH = Path(__file__).with_name("axe.min.js")
+
+
+def _system_chromium_executable() -> Path | None:
+    """Find a system Chromium browser on Windows when Playwright's browser is absent."""
+
+    configured = os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+    if configured:
+        executable = Path(configured).expanduser()
+        if not executable.is_file():
+            raise ScanError(
+                "PLAYWRIGHT_CHROMIUM_EXECUTABLE does not point to an existing file."
+            )
+        return executable
+
+    if os.name != "nt":
+        return None
+
+    candidates = [
+        Path(os.environ.get("PROGRAMFILES", ""))
+        / "BraveSoftware/Brave-Browser/Application/brave.exe",
+        Path(os.environ.get("PROGRAMFILES", ""))
+        / "Google/Chrome/Application/chrome.exe",
+        Path(os.environ.get("PROGRAMFILES(X86)", ""))
+        / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("LOCALAPPDATA", ""))
+        / "BraveSoftware/Brave-Browser/Application/brave.exe",
+        Path(os.environ.get("LOCALAPPDATA", ""))
+        / "Google/Chrome/Application/chrome.exe",
+    ]
+    return next((path for path in candidates if path.is_file()), None)
 
 
 class ScanError(Exception):
@@ -92,11 +123,25 @@ async def scan_with_playwright(initial_url: str) -> dict[str, Any]:
 
     try:
         async with async_playwright() as playwright:
-            browser = await playwright.chromium.launch(
-                headless=True,
-                timeout=10_000,
-                args=["--disable-dev-shm-usage"],
-            )
+            launch_options: dict[str, Any] = {
+                "headless": True,
+                "timeout": 10_000,
+                "args": ["--disable-dev-shm-usage"],
+            }
+            managed_browser = Path(playwright.chromium.executable_path)
+            configured_browser = os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+            if configured_browser or not managed_browser.is_file():
+                system_browser = _system_chromium_executable()
+                if system_browser is not None:
+                    launch_options["executable_path"] = str(system_browser)
+                elif not managed_browser.is_file():
+                    raise ScanError(
+                        "Chromium is not installed on this API host. Run "
+                        "`python -m playwright install chromium` or configure "
+                        "PLAYWRIGHT_CHROMIUM_EXECUTABLE."
+                    )
+
+            browser = await playwright.chromium.launch(**launch_options)
             outbound = httpx.AsyncClient(
                 timeout=httpx.Timeout(7.0),
                 follow_redirects=False,

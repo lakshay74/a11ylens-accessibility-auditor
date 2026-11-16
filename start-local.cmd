@@ -22,8 +22,12 @@ set "APP_ENV=development"
 set "FRONTEND_ORIGIN=http://localhost:4173"
 set "API_BASE_URL=http://127.0.0.1:8000"
 
-start "A11yLens API - keep open" cmd /k "cd /d ""%ROOT%backend"" && ""%PYTHON%"" -m uvicorn main:app --app-dir . --host 127.0.0.1 --port 8000"
-start "A11yLens Web - keep open" cmd /k "cd /d ""%ROOT%web"" && node server.js"
+start "A11yLens API - keep open" /D "%ROOT%backend" cmd /k ""%PYTHON%" -m uvicorn main:app --app-dir . --host 127.0.0.1 --port 8000"
+start "A11yLens Web - keep open" /D "%ROOT%web" cmd /k "node server.js"
 
 timeout /t 5 /nobreak >nul
-start "" "http://localhost:4173/"
+if exist "%ProgramFiles%\BraveSoftware\Brave-Browser\Application\brave.exe" (
+  start "" "%ProgramFiles%\BraveSoftware\Brave-Browser\Application\brave.exe" "http://localhost:4173/"
+) else (
+  start "" "http://localhost:4173/"
+)

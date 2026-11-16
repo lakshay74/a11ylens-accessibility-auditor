@@ -139,7 +139,7 @@ The **A11yLens score** is a project estimate, not an official WCAG rating. For e
 
 The app itself is mobile-first and keyboard accessible. Its scan findings and AI snippets are displayed as text. Public share links can be opened by anyone who has the link; saved report URLs omit query strings and fragments.
 
-For a one-click local start on Windows, double-click `start-local.cmd`; it opens the API and web server in separate windows and then opens the web app at `http://localhost:4173/`. Keep both server windows open. The API root at `http://127.0.0.1:8000/` reports the web app address, and its health check is at `/health`. You can also start the API and web server separately using the commands in [the deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md#local-development).
+For a one-click local start on Windows, double-click `start-local.cmd`; it opens the API and web server in separate windows and then opens the web app at `http://localhost:4173/` in Brave when installed in its default location. Keep both server windows open. The API root at `http://127.0.0.1:8000/` reports the web app address, and its health check is at `/health`. You can also start the API and web server separately using the commands in [the deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md#local-development).
 
 For local setup, MongoDB Atlas configuration, CORS settings, and the Embarko frontend/API hosting split, see [the A11yLens Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md). Run the focused backend tests from the project root with:
 
@@ -155,9 +155,9 @@ The extension uses `activeTab` and `scripting` for on-demand page access, `stora
 
 ## Where the project stands
 
-The Chrome extension and the first A11yLens Web implementation are in the project. The web API can scan a public page, calculate a documented score, attach local or Groq explanations, and save a shareable report when MongoDB is configured. The project still needs a real Chromium scan, a connected MongoDB service, a deployed API/frontend, and browser-based mobile/accessibility review. The extension's two local evaluation pages still need repeatable scans and recorded repair outcomes. See [the evaluation instructions](evaluation/README.md) and [the Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md).
+The Chrome extension and the first A11yLens Web implementation are in the project. On 16 November 2026, the local API completed a real Playwright scan of W3C using the installed Brave browser. That single scan verifies the browser launch and report path; it is not an accuracy evaluation or a WCAG conformance result. The 360 px and 390 px web layouts have no horizontal overflow and returned zero automated axe WCAG A/AA violations after a header-label fix. A short keyboard pass confirmed visible focus; manual screen-reader review remains pending. MongoDB and Groq are not configured, so reports are not saved and AI explanations are off. The API and frontend are local and have not been deployed. Remaining work includes connecting MongoDB, deploying the API to a container-capable host and the frontend to Embarko, and completing manual browser accessibility review. The extension's two local evaluation pages still need repeatable scans and recorded repair outcomes. See [the evaluation instructions](evaluation/README.md) and [the Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md).
 
-The WCAG reference set uses short summaries from W3C pages, not the full standard. The web tests mock browser scans and MongoDB; they do not measure real-page accuracy or confirm a live deployment. Groq mode and Chromium navigation still need live checks. The source code is public on GitHub; the API is not hosted and the extension is not published in the Chrome Web Store.
+The WCAG reference set uses short summaries from W3C pages, not the full standard. The web tests mock browser scans and MongoDB; they do not measure real-page accuracy or confirm a live deployment. Groq mode, MongoDB persistence, and public deployment still need live checks. The source code is public on GitHub; the API is not hosted and the extension is not published in the Chrome Web Store.
 
 ## License
 

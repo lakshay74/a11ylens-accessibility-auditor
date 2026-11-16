@@ -6,6 +6,8 @@ The web interface is a small Node server in `web/`. It serves the HTML, CSS and 
 
 The FastAPI service in `backend/` runs Chromium with Playwright and axe-core, calls Groq from the server when a key is configured, and stores public reports in MongoDB. Build the backend with `backend/Dockerfile` on a container host that can run Chromium, allow outbound HTTP/HTTPS scans, and connect to MongoDB. Start by checking whether the host can provide around 1 GB of memory for one API process; this is an initial sizing estimate, not a measured minimum. Keep Uvicorn at one worker because the scan semaphore and rate limit are process-local.
 
+If a scan reports **“Playwright is not installed on this API host,”** the API was started with a Python environment that does not have `backend/requirements.txt` installed. Rebuild the API from `backend/Dockerfile`; it installs both the Python package and Chromium. On a non-container host, install the requirements and Chromium in the same Python environment used to run Uvicorn. Installing dependencies for the frontend does not install them for the API.
+
 Embarko's current [hosting guide](https://embarko.ai/guides/free-hosting-for-students) describes a single 256 MB process per dynamic app, and its [AI app guide](https://embarko.ai/guides/how-to-deploy-ai-app) lists one dynamic app on the free plan. That suits this small Node frontend, but the Playwright/Chromium API needs a separate container-capable host with more memory. MongoDB is also external; Embarko does not provide a managed MongoDB service.
 
 ## MongoDB Atlas
@@ -55,6 +57,8 @@ Install the Python requirements and the matching Chromium binary once:
 backend/.venv/Scripts/python.exe -m pip install -r backend/requirements.txt
 backend/.venv/Scripts/python.exe -m playwright install chromium
 ```
+
+On Windows, if Playwright's managed browser is missing, the scanner can use an installed Brave, Chrome, or Edge browser. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to an executable path to choose a specific browser. Linux API hosts need the managed Chromium binary; the Dockerfile installs it with its system dependencies.
 
 Set `FRONTEND_ORIGIN=http://localhost:4173` in `backend/.env`, then start both processes in separate terminals:
 
