@@ -440,6 +440,18 @@ async def load_report(report_id: str) -> dict[str, Any] | None:
     return await store.get(report_id)
 
 
+@app.get("/")
+def root() -> dict[str, Any]:
+    """Make the API's base address useful when opened directly in a browser."""
+
+    return {
+        "service": "A11yLens API",
+        "status": "ok",
+        "web_app": FRONTEND_ORIGIN or "http://localhost:4173/",
+        "health": "/health",
+    }
+
+
 @app.get("/health")
 def health() -> dict[str, Any]:
     return {

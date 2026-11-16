@@ -36,6 +36,18 @@ def fake_request(client_ip: str) -> SimpleNamespace:
 
 
 class ScanEndpointTests(unittest.TestCase):
+    def test_api_root_points_to_the_web_app(self) -> None:
+        with patch("backend.main.FRONTEND_ORIGIN", ""):
+            self.assertEqual(
+                main.root(),
+                {
+                    "service": "A11yLens API",
+                    "status": "ok",
+                    "web_app": "http://localhost:4173/",
+                    "health": "/health",
+                },
+            )
+
     def invoke_scan(self, client_ip: str, url: str = "https://example.com/"):
         with (
             patch("backend.main.asyncio.to_thread", new=immediate_to_thread),

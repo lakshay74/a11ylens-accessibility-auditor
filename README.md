@@ -139,7 +139,7 @@ The **A11yLens score** is a project estimate, not an official WCAG rating. For e
 
 The app itself is mobile-first and keyboard accessible. Its scan findings and AI snippets are displayed as text. Public share links can be opened by anyone who has the link; saved report URLs omit query strings and fragments.
 
-For local use, start FastAPI with the command above, set `FRONTEND_ORIGIN=http://localhost:4173` in `backend/.env`, then start the Node interface from `web/` with `API_BASE_URL=http://127.0.0.1:8000`. The scan form appears at `http://localhost:4173`.
+For a one-click local start on Windows, double-click `start-local.cmd`; it opens the API and web server in separate windows and then opens the web app at `http://localhost:4173/`. Keep both server windows open. The API root at `http://127.0.0.1:8000/` reports the web app address, and its health check is at `/health`. You can also start the API and web server separately using the commands in [the deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md#local-development).
 
 For local setup, MongoDB Atlas configuration, CORS settings, and the Embarko frontend/API hosting split, see [the A11yLens Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md). Run the focused backend tests from the project root with:
 
