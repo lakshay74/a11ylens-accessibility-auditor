@@ -141,7 +141,7 @@ The app itself is mobile-first and keyboard accessible. Its scan findings and AI
 
 For a one-click local start on Windows, double-click `start-local.cmd`; it opens the API and web server in separate windows and then opens the web app at `http://localhost:4173/` in Brave when installed in its default location. Keep both server windows open. The API root at `http://127.0.0.1:8000/` reports the web app address, and its health check is at `/health`. You can also start the API and web server separately using the commands in [the deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md#local-development).
 
-For local setup, MongoDB Atlas configuration, CORS settings, and the Embarko frontend/API hosting split, see [the A11yLens Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md). Run the focused backend tests from the project root with:
+For local setup, MongoDB Atlas configuration, CORS settings, and the Embarko frontend/API hosting split, see [the A11yLens Web deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md). Deployment steps are available for [Azure for Students](ops/azure-student/README.md) if eligible, with an [Oracle Always Free VM fallback](ops/oracle-vm/README.md). Run the focused backend tests from the project root with:
 
 ```powershell
 backend/.venv/Scripts/python.exe -m unittest discover -s backend/tests -v
