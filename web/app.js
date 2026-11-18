@@ -41,6 +41,15 @@ function setError(message) {
   errorMessage.hidden = !message;
 }
 
+function messageForFailure(error) {
+  if (error instanceof TypeError) {
+    return "Could not connect to the A11yLens service. Check your connection or try again in a moment.";
+  }
+  return error instanceof Error && error.message
+    ? error.message
+    : "The request could not be completed. Please try again.";
+}
+
 function setLoading(active) {
   loadingState.hidden = !active;
   scanButton.disabled = active;
@@ -271,7 +280,7 @@ async function loadSharedReport(reportId) {
     if (!response.ok) throw new Error(response.status === 404 ? "This report link is invalid or no longer available." : errorForResponse(response.status, body));
     renderReport({ ...body, saved: true, share_path: `/r/${reportId}` }, { isShared: true });
   } catch (error) {
-    setError(error.message || "This report could not be loaded.");
+    setError(messageForFailure(error));
     document.querySelector("#report-heading").textContent = "Report unavailable";
     resultsSection.hidden = false;
   } finally {
@@ -306,7 +315,7 @@ form.addEventListener("submit", async (event) => {
     const report = await requestScan(parsed.href);
     renderReport(report);
   } catch (error) {
-    setError(error.message || "The scan could not be completed. Please try again.");
+    setError(messageForFailure(error));
   } finally {
     window.clearInterval(timer);
     setLoading(false);
