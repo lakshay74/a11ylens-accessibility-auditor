@@ -407,7 +407,10 @@ scanButton.addEventListener("click", async () => {
     if (!response?.ok) throw new Error(response?.error || "The scan did not complete.");
 
     renderScan({ ...response.scan, pageTitle: response.scan.pageTitle || "Current page" }, response.tabId);
-    scanStatus.textContent = `Scanned just now${response.scan.counts?.violations ? ". Select a finding to inspect or explain it." : "."}`;
+    scanStatus.textContent = window.A11yLens.createScanCompletionMessage(response.scan.counts);
+    if (response.scan.counts?.violations) {
+      scanStatus.textContent += " Select a finding to inspect or explain it.";
+    }
   } catch (error) {
     showError(error.message || "Could not scan this page.");
     scanStatus.textContent = "Try a regular website tab and scan again.";

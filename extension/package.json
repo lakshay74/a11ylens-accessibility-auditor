@@ -4,7 +4,8 @@
   "private": true,
   "description": "Build-time dependency for the A11yLens Chrome extension.",
   "scripts": {
-    "build": "node scripts/copy-axe.js"
+    "build": "node scripts/copy-axe.js",
+    "test": "node --test tests/*.test.js"
   },
   "devDependencies": {
     "axe-core": "4.14.0"
