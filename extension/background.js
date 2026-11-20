@@ -1,14 +1,7 @@
-const UNSUPPORTED_PAGE_PREFIXES = [
-  "chrome://",
-  "chrome-extension://",
-  "https://chrome.google.com/webstore",
-  "https://chromewebstore.google.com/",
-  "devtools://"
-];
+importScripts("page-policy.js");
 
 function isSupportedPage(url) {
-  return typeof url === "string" &&
-    !UNSUPPORTED_PAGE_PREFIXES.some((prefix) => url.startsWith(prefix));
+  return globalThis.A11yLensPagePolicy.isSupportedPage(url);
 }
 
 async function getActiveTab() {
