@@ -139,7 +139,7 @@ The web app accepts one public HTTP/HTTPS URL and scans it with headless Chromiu
 
 The **A11yLens score** is a project estimate, not an official WCAG rating. For each axe rule, subtract its impact weight multiplied by up to five affected elements: critical 12, serious 8, moderate 4, minor 1. The final score is `max(0, 100 - total penalties)`. Unknown impact uses the minor weight. Impact counts use axe-core's affected-element totals; the same element can count under multiple rules.
 
-The app itself is mobile-first and keyboard accessible. Its scan findings and AI snippets are displayed as text. Public share links can be opened by anyone who has the link; saved report URLs omit query strings and fragments.
+The app itself is mobile-first and keyboard accessible. Its scan findings and AI snippets are displayed as text. Public share links can be opened by anyone who has the link; saved report URLs omit query strings and fragments. When MongoDB storage is enabled, full reports (including sampled HTML and explanations) persist until the database operator deletes them; the current app has no automatic expiry or delete route. Review [the privacy disclosure](docs/PRIVACY.md) before enabling report storage for a public deployment.
 
 For a one-click local start on Windows, double-click `start-local.cmd`; it opens the API and web server in separate windows and then opens the web app at `http://localhost:4173/` in Brave when installed in its default location. Keep both server windows open. The API root at `http://127.0.0.1:8000/` reports the web app address, and its health check is at `/health`. You can also start the API and web server separately using the commands in [the deployment guide](docs/A11YLENS_WEB_DEPLOYMENT.md#local-development).
 
