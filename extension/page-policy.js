@@ -9,9 +9,10 @@ function isSupportedPage(url) {
     const page = new URL(url);
     if (!WEB_PROTOCOLS.has(page.protocol)) return false;
 
+    const hostname = page.hostname.toLowerCase().replace(/\.$/, "");
     const path = page.pathname.toLowerCase();
-    if (page.hostname === "chromewebstore.google.com") return false;
-    if (page.hostname === "chrome.google.com" && (path === "/webstore" || path.startsWith("/webstore/"))) {
+    if (hostname === "chromewebstore.google.com") return false;
+    if (hostname === "chrome.google.com" && (path === "/webstore" || path.startsWith("/webstore/"))) {
       return false;
     }
     return true;

@@ -16,7 +16,9 @@ test("rejects browser pages, store pages, malformed URLs, and non-web schemes", 
     "devtools://devtools/bundled/inspector.html",
     "https://chrome.google.com/webstore",
     "https://chrome.google.com/webstore/category/extensions",
+    "https://chrome.google.com./webstore/category/extensions",
     "https://chromewebstore.google.com/detail/example",
+    "https://chromewebstore.google.com./detail/example",
     "file:///C:/example.html",
     "not a URL"
   ]) {
