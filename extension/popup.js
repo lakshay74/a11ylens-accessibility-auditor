@@ -298,7 +298,10 @@ function createFindingCard(finding, category, tabId, index, showBothGroupsNote) 
     const explanationContainer = createElement("div", "");
     explain.addEventListener("click", async () => {
       if (!sampleNodes[0]) {
-        showError("No affected HTML was available for this finding.");
+        window.A11yLens.showGuidanceError(
+          explanationContainer,
+          new Error("No affected HTML was available for this finding.")
+        );
         return;
       }
 
@@ -330,9 +333,7 @@ function createFindingCard(finding, category, tabId, index, showBothGroupsNote) 
         appendExplanation(explanationContainer, data, category);
         if (!explanationContainer.isConnected) card.append(explanationContainer);
       } catch (error) {
-        showError(error.name === "TypeError"
-          ? "Could not reach the local backend. Start FastAPI on 127.0.0.1:8000, then try again."
-          : error.message);
+        window.A11yLens.showGuidanceError(explanationContainer, error);
       } finally {
         explain.disabled = false;
         explain.textContent = "Get WCAG guidance";

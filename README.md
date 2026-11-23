@@ -47,10 +47,11 @@ extension/                 Chrome extension source
   scripts/build-icons.ps1  Regenerates PNG icons on Windows
   background.js            Injects scanner files only after a user starts a scan
   page-policy.js           Allows web pages and rejects browser or store pages
+  guidance-errors.js       Shows WCAG API failures next to the affected finding
   content.js               Runs axe and highlights selected targets
   popup.html / popup.css   Accessible popup UI
   popup.js                 Popup behavior and backend requests
-  tests/                   Focused tests for popup status and page policy helpers
+  tests/                   Focused tests for popup status, API errors, and page policy
 backend/
   data/wcag.json            WCAG 2.2 A/AA summary corpus with W3C source links
   main.py                   FastAPI routes and optional Groq call
