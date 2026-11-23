@@ -37,7 +37,9 @@ When Groq mode is enabled, requesting guidance sends the selected finding, inclu
 
 ## 3. Start the API
 
-From the repository root:
+For a one-click local start on Windows, double-click `start-api.cmd` in the repository root. Keep the **A11yLens API** console open while using the extension. The script reuses an API already answering on `127.0.0.1:8000` and binds any new server to loopback only. It does not require a Groq key.
+
+To start it manually, from the repository root run:
 
 ```powershell
 backend/.venv/Scripts/python.exe -m uvicorn main:app --app-dir backend --reload --host 127.0.0.1 --port 8000

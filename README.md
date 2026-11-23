@@ -130,7 +130,7 @@ For a safe local-only setup, optional Groq configuration, and API error troubles
 1. Open `chrome://extensions` and enable **Developer mode**.
 2. Choose **Load unpacked** and select this project's `extension/` folder.
 3. Open a normal website, click the A11yLens icon, then click **Scan this page**.
-4. Use **Axe rule help** to read about a rule, or **Inspect element** to highlight a target. Use **Get WCAG guidance** on a violation or manual-review finding. Manual-review guidance is for considering a possible issue, not treating it as a confirmed failure. Scanning works locally if the API is offline.
+4. Use **Axe rule help** to read about a rule, or **Inspect element** to highlight a target. Use **Get WCAG guidance** on a violation or manual-review finding. Start `start-api.cmd` first and keep its console open; local WCAG guidance works without a Groq key. Manual-review guidance is for considering a possible issue, not treating it as a confirmed failure. Scanning works locally if the API is offline.
 
 The extension cannot scan Chrome internal pages, the Chrome Web Store, or some protected browser pages. Reload a page after reloading the extension if Chrome reports that the content script is unavailable.
 
