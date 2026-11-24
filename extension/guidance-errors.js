@@ -2,7 +2,7 @@
 
 function guidanceErrorMessage(error) {
   if (error instanceof TypeError) {
-    return "Could not reach the local backend. Check that FastAPI is running on 127.0.0.1:8000.";
+    return "Could not reach the local backend. Start FastAPI on 127.0.0.1:8000 (on Windows, run start-api.cmd), then try again.";
   }
   return error instanceof Error && error.message
     ? error.message
