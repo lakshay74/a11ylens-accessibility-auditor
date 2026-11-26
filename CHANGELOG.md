@@ -4,6 +4,7 @@ Notable project changes are recorded here. The project is pre-release and may ch
 
 ## Unreleased
 
+- Made the Windows API launcher detect when port 8000 is occupied by a non-A11yLens service before starting another server.
 - Added a safe local backend/Groq setup guide with troubleshooting for provider errors and timeouts.
 - Added a repeatable keyboard and screen-reader review checklist; manual results remain pending.
 - Recorded a source-level permissions, data-flow, API-key, and axe notice review; final release review remains open.

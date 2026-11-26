@@ -37,7 +37,7 @@ When Groq mode is enabled, requesting guidance sends the selected finding, inclu
 
 ## 3. Start the API
 
-For a one-click local start on Windows, double-click `start-api.cmd` in the repository root. Keep the **A11yLens API** console open while using the extension. The script reuses an API already answering on `127.0.0.1:8000` and binds any new server to loopback only. It does not require a Groq key.
+For a one-click local start on Windows, double-click `start-api.cmd` in the repository root. Keep the **A11yLens API** console open while using the extension. The script reuses an API already answering on `127.0.0.1:8000`, and explains if another service occupies that port. Any new server binds to loopback only. It does not require a Groq key.
 
 To start it manually, from the repository root run:
 
@@ -52,6 +52,7 @@ Keep this process running while you use **Get WCAG guidance**. Scanning still wo
 | What you see | What it means | What to do |
 | --- | --- | --- |
 | Popup says it cannot reach the local backend | FastAPI is stopped, using a different port, or unreachable | Start the command above, check `/health`, then close and reopen the popup and try again. |
+| `start-api.cmd` says port 8000 is already in use | Another process owns the API port, or the health route did not identify an A11yLens API | Open `http://127.0.0.1:8000/health`. If it is not A11yLens, run `netstat -ano | findstr :8000`, then identify its PID with `tasklist /FI "PID eq <PID>"`. Close that app only after confirming what it is, then retry. |
 | `/health` reports `groq_configured: false` | The server will use local WCAG guidance | This is expected when `GROQ_API_KEY` is blank. No Groq key is needed for local guidance. |
 | `502` and “Groq rejected the request” | The provider rejected the configured key or model | Check the key and model in `backend/.env`, save, restart FastAPI, and retry once. |
 | `502` and “Could not reach Groq” | The backend could not connect to the provider | Check network access, then retry when the provider is reachable. |
