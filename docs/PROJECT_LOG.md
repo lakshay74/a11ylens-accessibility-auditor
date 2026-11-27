@@ -2,7 +2,7 @@
 
 This file keeps the working state and decisions in the repository so project context survives beyond a chat session.
 
-**Last updated:** 2026-11-16
+**Last updated:** 2026-11-27
 **Project name:** A11yLens
 **Current stage:** Week 6 - release preparation and A11yLens Web deployment setup
 
@@ -11,7 +11,7 @@ This file keeps the working state and decisions in the repository so project con
 **GitHub sync check (2026-11-06):** The eight follow-up commits were pushed; `main` and `origin/main` matched at `41dc477` before this handoff update.
 **T1 commit:** `d4d241f` - Clarify manual review guidance and results (pushed)
 **T2 commit:** `236f35d` - Verify local guidance mappings (pushed)
-**T3 evaluation setup:** Fixtures, scan procedure, backend setup, and assistive-technology checklist are pushed; browser results remain pending.
+**T3 evaluation setup:** Fixtures, scan procedure, backend setup, and assistive-technology checklist are pushed; one automated local axe run is recorded, while popup, repair, and manual review remain pending.
 
 ## A11yLens Web status (2026-11-16)
 
@@ -23,6 +23,11 @@ This file keeps the working state and decisions in the repository so project con
 - `/health` currently reports `mongo_configured: false` and `groq_configured: false`. The scan response is not saved, so share links are unavailable; AI explanations are off.
 - No public API or frontend deployment has been created. The deployment guide documents MongoDB Atlas, the API container host, and the Embarko frontend setup. External account creation, host selection, and environment-variable configuration remain to be done.
 - The automated scan and brief keyboard pass are not a screen-reader review. Broader real-page evaluation, Groq behavior, MongoDB persistence, and public deployment remain unverified.
+
+## Local fixture evaluation (2026-11-27)
+
+- The first automated scan of both local fixtures is recorded in `evaluation/RUN_2026-11-27.md`: the baseline returned no results; the intentional-issues fixture returned eight candidate violation IDs and one manual-review ID.
+- This direct axe run matched the extension's WCAG tags and result types but did not exercise the popup or establish accuracy. Target-size investigation, repair comparisons, and human review remain pending.
 
 ## Current implementation
 
@@ -41,7 +46,7 @@ This file keeps the working state and decisions in the repository so project con
 - After the backend was restarted, the user confirmed that **Get WCAG guidance** worked from the extension popup. This verifies one popup-to-local-API request; the selected axe rule and whether the card was a violation or manual-review card were not recorded. Groq remained unconfigured, so this was the local-guidance path.
 - Added `docs/LOCAL_BACKEND_SETUP.md` with safe local key handling, local-only behavior, restart steps, and code-matched 502/504 troubleshooting. Groq mode remains untested because no key has been configured.
 - The bundled axe-core 4.14.0 rule table tags `link-name` with both `wcag244` and `wcag412`; `backend/rag.py` now directly maps it to 2.4.4 and 4.1.2. Axe criterion tags are currently omitted from A11yLens scan output by `extension/content.js`'s `serializeRule()`.
-- Added two local evaluation fixtures, a scan procedure, and a blank results template under `evaluation/`. The intentional issue list is a candidate checklist, not confirmed scan output; no fixture scans or repair outcomes have been recorded yet.
+- Added two local evaluation fixtures, a repeatable headless scan script, a scan procedure, and a blank results template under `evaluation/`. The first automated scan is recorded; the intentional issue list remains a candidate checklist, popup scans and repair outcomes are pending, and human review has not been done.
 - Inspected the popup markup and styles for the planned manual review. The code includes heading structure, status and alert regions, standard buttons/links/details controls, and visible keyboard focus styling. Added `evaluation/ASSISTIVE_TECH_TEMPLATE.md`; actual keyboard and screen-reader behavior remains untested until run in Brave.
 - Static release-source review: `extension/manifest.json` requests only `activeTab`, `scripting`, `storage`, and the local API host. The scan starts on the user's request; scan details are held in `chrome.storage.session`, and the selected finding is sent for guidance only after the user asks. `docs/PRIVACY.md` now records the current permission set. The axe 4.14.0 build script copies the MPL license and third-party notices, and both notice files are tracked. Packaged-store review, hosted-backend security decisions, and the user's source-license choice remain pending.
 - Backend binds to `127.0.0.1` in the documented development command.

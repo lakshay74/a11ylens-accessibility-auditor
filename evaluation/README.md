@@ -33,7 +33,9 @@ The second page was authored to exercise these axe rules:
 | 16 by 16 pixel button | `target-size` |
 | Visible label differs from its accessible name | `label-content-name-mismatch` |
 
-These are candidate expectations based on the authored markup and axe rule purpose. They have **not yet been confirmed by a browser scan**. Record actual rule IDs, category (violation or manual review), and affected node counts in [the results template](RESULTS_TEMPLATE.md). Do not turn a missing candidate finding into a product claim until the test setup and rule behavior have been checked.
+These are candidate expectations based on the authored markup and axe rule purpose. The repeatable local runner records observed rule IDs, categories, and affected node counts in each run record. An observation is not independent human confirmation. Do not turn a missing candidate finding into a product claim until the setup and rule behavior have been reviewed.
+
+The first automated run is recorded in [RUN_2026-11-27.md](RUN_2026-11-27.md), with raw output in [RUN_2026-11-27.json](RUN_2026-11-27.json). It observed eight of nine candidate rule IDs; `target-size` was not returned. Human review, popup end-to-end checks, and repair comparisons remain pending.
 
 ## Repeatable procedure
 
@@ -43,6 +45,8 @@ These are candidate expectations based on the authored markup and axe rule purpo
 4. Compare the observed IDs with the candidate list above. Review unexpected results instead of silently removing them.
 5. To measure a repair, change one issue at a time, rescan the same page, and record whether the intended result disappeared and whether another result appeared.
 6. Keep the pages and results local. Use a clean browser profile for any screenshots.
+
+For a local headless run using the same axe-core bundle and WCAG tags as the extension, run `backend/.venv/Scripts/python.exe evaluation/run_fixture_scan.py` from the repository root. It blocks HTTP and HTTPS requests and does not call the API. Save the JSON output alongside a copy of the [results template](RESULTS_TEMPLATE.md), and keep human review status explicit.
 
 The candidate list is a fixture checklist, not independent ground truth. Axe WCAG tags help map a rule to criteria, but they do not prove that a specific page-level result is correct. A human should verify the authored defect and review false positives or missed findings before summarizing the evaluation.
 
