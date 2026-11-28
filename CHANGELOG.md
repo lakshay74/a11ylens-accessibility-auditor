@@ -4,6 +4,7 @@ Notable project changes are recorded here. The project is pre-release and may ch
 
 ## Unreleased
 
+- Adjusted the synthetic target-size fixture to use adjacent undersized controls and recorded a follow-up scan that detects both targets.
 - Added a repeatable headless axe scan for both local fixtures and recorded the first observed rule IDs and node counts; manual review and repair comparisons remain pending.
 - Made the Windows API launcher detect when port 8000 is occupied by a non-A11yLens service before starting another server.
 - Added a safe local backend/Groq setup guide with troubleshooting for provider errors and timeouts.

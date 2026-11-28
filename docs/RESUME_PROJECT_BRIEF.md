@@ -157,7 +157,7 @@ Accuracy rules:
 - Do not say the project is WCAG-compliant or that it detects every accessibility problem.
 - Describe the six API requests as a synthetic local smoke check, not a formal accuracy evaluation.
 - Say the Groq integration is optional and has not yet been tested with a configured key.
-- Say one automated local axe fixture run is recorded, but extension popup end-to-end scans, repair comparisons, and assistive-technology evaluation remain pending.
+- Say automated local axe fixture runs are recorded, including a follow-up that exercises adjacent small-target detection; extension popup end-to-end scans, repair comparisons, and assistive-technology evaluation remain pending.
 - Do not say the extension or API is published or hosted; the extension is a local development build and the backend runs on localhost.
 - Do not describe the source as open source or assign a license; no A11yLens source license has been chosen.
 - If the brief does not establish whether I built a feature alone or with assistance, ask me rather than inventing an attribution claim.

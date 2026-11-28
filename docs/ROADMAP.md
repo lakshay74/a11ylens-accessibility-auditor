@@ -39,7 +39,7 @@ This page is the maintained implementation plan based on the supplied six-week p
 - [x] Create a small, clearly labeled set of accessible and intentionally flawed local demo pages with a repeatable scan procedure and results template.
 - [x] Document a repeatable keyboard and screen-reader review procedure in `evaluation/ASSISTIVE_TECH_TEMPLATE.md`; the manual checks themselves remain pending.
 - [ ] Record scan coverage, retrieval agreement, and repair outcomes on a repeatable evaluation set without claiming automated conformance. Axe tags may be a reference baseline, not independent ground truth.
-  - Progress: one automated scan of both local fixtures is recorded in `evaluation/RUN_2026-11-27.md`; retrieval agreement, repair comparisons, and human review remain pending.
+  - Progress: automated scans of both local fixtures are recorded in `evaluation/RUN_2026-11-27.md` and `evaluation/RUN_2026-11-28.md`; the small-target fixture now exercises two adjacent targets. Retrieval agreement, repair comparisons, popup end-to-end scans, and human review remain pending.
 - [ ] Review keyboard navigation, screen-reader announcements, and popup layout using manual assistive-technology checks.
 - [ ] Refine report naming and presentation based on evaluation feedback.
 

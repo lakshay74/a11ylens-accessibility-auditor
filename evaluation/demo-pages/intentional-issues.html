@@ -47,6 +47,7 @@
       font-size: 10px;
       line-height: 16px;
     }
+    .tiny-target-group { display: flex; gap: 4px; }
     .visually-hidden {
       position: absolute;
       width: 1px;
@@ -115,9 +116,18 @@
     </section>
 
     <section class="issue" aria-labelledby="target-heading">
-      <h2 id="target-heading">Very small touch target</h2>
+      <h2 id="target-heading">Adjacent small touch targets</h2>
       <span class="issue-label">Intended check: target size</span>
-      <button class="tiny-target" type="button" aria-label="Close notice">x</button>
+      <div class="tiny-target-group">
+        <button class="tiny-target" type="button">
+          <span aria-hidden="true">&lt;</span>
+          <span class="visually-hidden">Previous item</span>
+        </button>
+        <button class="tiny-target" type="button">
+          <span aria-hidden="true">&gt;</span>
+          <span class="visually-hidden">Next item</span>
+        </button>
+      </div>
     </section>
 
     <section class="issue" aria-labelledby="name-mismatch-heading">

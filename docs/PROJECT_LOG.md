@@ -2,7 +2,7 @@
 
 This file keeps the working state and decisions in the repository so project context survives beyond a chat session.
 
-**Last updated:** 2026-11-27
+**Last updated:** 2026-11-28
 **Project name:** A11yLens
 **Current stage:** Week 6 - release preparation and A11yLens Web deployment setup
 
@@ -11,7 +11,7 @@ This file keeps the working state and decisions in the repository so project con
 **GitHub sync check (2026-11-06):** The eight follow-up commits were pushed; `main` and `origin/main` matched at `41dc477` before this handoff update.
 **T1 commit:** `d4d241f` - Clarify manual review guidance and results (pushed)
 **T2 commit:** `236f35d` - Verify local guidance mappings (pushed)
-**T3 evaluation setup:** Fixtures, scan procedure, backend setup, and assistive-technology checklist are pushed; one automated local axe run is recorded, while popup, repair, and manual review remain pending.
+**T3 evaluation setup:** Fixtures, scan procedure, backend setup, and assistive-technology checklist are pushed; automated local axe results are recorded, while popup, repair, and manual review remain pending.
 
 ## A11yLens Web status (2026-11-16)
 
@@ -28,6 +28,11 @@ This file keeps the working state and decisions in the repository so project con
 
 - The first automated scan of both local fixtures is recorded in `evaluation/RUN_2026-11-27.md`: the baseline returned no results; the intentional-issues fixture returned eight candidate violation IDs and one manual-review ID.
 - This direct axe run matched the extension's WCAG tags and result types but did not exercise the popup or establish accuracy. Target-size investigation, repair comparisons, and human review remain pending.
+
+## Fixture follow-up (2026-11-28)
+
+- The first fixture used one isolated 16 by 16 pixel target, which passed axe's spacing exception. It was changed to two adjacent small targets; the repeatable scan now reports `target-size` for both under the extension's normal WCAG-tag profile. Results are recorded in `evaluation/RUN_2026-11-28.md` and its JSON output.
+- This confirms the fixture check, not general scan accuracy or WCAG conformance. Popup end-to-end checks, repair comparisons, and human review remain pending.
 
 ## Current implementation
 

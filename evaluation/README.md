@@ -30,12 +30,12 @@ The second page was authored to exercise these axe rules:
 | Image without an `alt` attribute | `image-alt` |
 | Invalid `aria-checked` value | `aria-valid-attr-value` |
 | List role without required list item child role | `aria-required-children` |
-| 16 by 16 pixel button | `target-size` |
+| Two 16 by 16 pixel buttons with a 4 pixel gap | `target-size` |
 | Visible label differs from its accessible name | `label-content-name-mismatch` |
 
 These are candidate expectations based on the authored markup and axe rule purpose. The repeatable local runner records observed rule IDs, categories, and affected node counts in each run record. An observation is not independent human confirmation. Do not turn a missing candidate finding into a product claim until the setup and rule behavior have been reviewed.
 
-The first automated run is recorded in [RUN_2026-11-27.md](RUN_2026-11-27.md), with raw output in [RUN_2026-11-27.json](RUN_2026-11-27.json). It observed eight of nine candidate rule IDs; `target-size` was not returned. Human review, popup end-to-end checks, and repair comparisons remain pending.
+The initial automated run is recorded in [RUN_2026-11-27.md](RUN_2026-11-27.md), with raw output in [RUN_2026-11-27.json](RUN_2026-11-27.json). It used one isolated 16 by 16 pixel target; axe did not report `target-size` because the rule allows smaller targets when there is sufficient space around them. The fixture now uses two small adjacent targets to exercise that rule. The follow-up in [RUN_2026-11-28.md](RUN_2026-11-28.md) reports the rule for both buttons under the extension's normal WCAG-tag scan. Human review, popup end-to-end checks, and repair comparisons remain pending. See the [axe target-size rule guidance](https://dequeuniversity.com/rules/axe/4.14/target-size?application=RuleDescription).
 
 ## Repeatable procedure
 

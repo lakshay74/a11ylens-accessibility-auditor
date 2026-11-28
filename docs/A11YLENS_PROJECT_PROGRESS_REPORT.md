@@ -5,7 +5,7 @@
 **T1 commit:** `d4d241f` - Clarify manual review guidance and results (pushed)<br>
 **T2 implementation commit:** `236f35d` - Verify local guidance mappings (pushed)<br>
 **T2 result:** `link-name` maps to WCAG 2.4.4 and 4.1.2; six local API smoke-check results are recorded below.<br>
-**T3 evaluation setup:** Two local fixture pages, a scan protocol, backend setup guide, and manual assistive-technology checklist are pushed; browser results remain pending.<br>
+**T3 evaluation setup:** Two local fixture pages, a scan protocol, backend setup guide, and manual assistive-technology checklist are pushed; automated local axe runs are recorded in `evaluation/`, while popup, repair, and manual review remain pending.<br>
 **Project repository:** https://github.com/lakshay74/a11ylens-accessibility-auditor<br>
 **Project stage:** Week 5 evaluation and interface polish; Week 6 release preparation started
 
